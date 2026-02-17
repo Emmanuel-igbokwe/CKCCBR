@@ -22,6 +22,7 @@
       --gradient-secondary:linear-gradient(135deg,var(--deep-purple) 0%,#1A0F26 100%);
       --gradient-overlay:linear-gradient(rgba(43,27,61,.7),rgba(43,27,61,.85));
     }
+
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Source Serif Pro',serif;line-height:1.6;color:var(--charcoal);overflow-x:hidden}
 
@@ -40,32 +41,49 @@
     }
     .nav-container{
       max-width:1400px;margin:0 auto;
-      padding:1rem 2rem;
+      padding:0.9rem 2rem;     /* slightly tighter to balance larger logo */
       display:flex;justify-content:space-between;align-items:center;
+      gap:1rem;
     }
 
     /* Logo (always rotating) */
-    .logo-link{display:inline-flex;align-items:center;text-decoration:none}
+    .logo-link{
+      display:inline-flex;
+      align-items:center;
+      text-decoration:none;
+      margin-left:-12px;       /* move logo further left; adjust -8 to -16px if needed */
+    }
     .logo-img{
-      height:64px;         /* increased size on mobile */
+      height:72px;             /* increased size on mobile */
       width:auto;display:block;
       transform-origin:50% 50%;
-      animation: spin360 18s linear infinite;   /* always rotate */
+      animation: spin360 18s linear infinite;   /* always rotating */
       will-change: transform;
-      /* Optional: subtle glow to lift on dark header */
       filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
     }
     @media (min-width: 992px){
-      .logo-img{height:84px;}                   /* increased size on desktop */
+      .logo-img{height:96px;}  /* increased size on desktop */
     }
 
-    .nav-menu{display:flex;list-style:none;gap:2rem}
+    .nav-menu{display:flex;list-style:none;gap:1.8rem} /* slightly tighter gap */
     .nav-menu a{color:#F9F6F0;text-decoration:none}
 
     /* Hero */
-    .hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--soft-white);position:relative}
+    .hero{
+      height:100vh;display:flex;align-items:center;justify-content:center;
+      text-align:center;color:var(--soft-white);position:relative;
+      padding-top:140px;        /* ensures the big title doesn't collide with fixed header */
+    }
+    @media (min-width: 992px){
+      .hero{ padding-top:160px; }
+    }
     .hero-content{max-width:900px;padding:2rem}
-    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:700;margin-bottom:1.1rem;text-shadow:2px 2px 10px rgba(0,0,0,.7)}
+    .hero h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.2rem,5.5vw,3.6rem);
+      font-weight:700;margin-bottom:1.1rem;
+      text-shadow:2px 2px 10px rgba(0,0,0,.7);
+    }
     .subtitle{font-size:clamp(1rem,2.4vw,1.6rem);font-weight:400;margin-bottom:1.2rem;opacity:.95}
     .description{font-size:1.05rem;margin-bottom:2rem;opacity:.95;line-height:1.8}
     .cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
@@ -73,7 +91,11 @@
     .btn-primary{background:var(--gradient-primary);color:var(--deep-purple)}
     .btn-secondary{background:transparent;color:#F9F6F0;border:2px solid var(--royal-gold)}
 
-    .audio-control{position:fixed;bottom:1.4rem;right:1.4rem;z-index:1000;background:var(--gradient-primary);border:none;border-radius:40px;padding:.8rem 1.2rem;color:#1A0F26;font-weight:700;cursor:pointer}
+    .audio-control{
+      position:fixed;bottom:1.4rem;right:1.4rem;z-index:1000;
+      background:var(--gradient-primary);border:none;border-radius:40px;
+      padding:.8rem 1.2rem;color:#1A0F26;font-weight:700;cursor:pointer
+    }
 
     /* Main sections */
     .main-content{background:var(--cream);position:relative;z-index:10}
@@ -122,8 +144,8 @@
   <header class="header">
     <nav class="nav-container">
       <!-- Rotating transparent PNG logo -->
-      <a href="#home" class="logo-link" aria-label="Christ the King Christian Center - Home">
-        <img src="Logo.png" alt="Christ the King Christian Center logo" class="logo-img">
+      <a href="#home" class="logo-link" aria-label="Christ the King Christian Center Home">
+        <img src="Logo.png" alt="Christ the King Christian Center logo" class="logo-img" />
       </a>
 
       <ul class="nav-menu">
@@ -144,7 +166,7 @@
       <p class="description">People from different parts of the world come together to worship and glorify God. Experience dynamic Praise &amp; Worship where God is enthroned in the praises of His people.</p>
       <div class="cta-buttons">
         <a href="#services" class="btn btn-primary">Join Our Services</a>
-        <a class="btn btn-secondary" href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" target="_blank" rel="noopener">Join Us on YouTube</a>
+        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-secondary" target="_blank" rel="noopener">Join Us on YouTube</a>
       </div>
     </div>
   </section>
@@ -160,7 +182,6 @@
         <h2 class="section-title">About Our Church</h2>
         <div class="about-grid">
 
-          <!-- Background -->
           <div class="about-card">
             <h3>Background</h3>
             <p>
