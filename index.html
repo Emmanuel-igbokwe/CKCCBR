@@ -44,21 +44,22 @@
       display:flex;justify-content:space-between;align-items:center;
     }
 
-    /* Image logo (always rotating) */
+    /* Logo (always rotating) */
     .logo-link{display:inline-flex;align-items:center;text-decoration:none}
     .logo-img{
       height:64px;         /* increased size on mobile */
       width:auto;display:block;
-      filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
       transform-origin:50% 50%;
       animation: spin360 18s linear infinite;   /* always rotate */
       will-change: transform;
+      /* Optional: subtle glow to lift on dark header */
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
     }
     @media (min-width: 992px){
       .logo-img{height:84px;}                   /* increased size on desktop */
     }
 
-    .nav-menu{display:flex;list-style:none;gap:2.2rem}
+    .nav-menu{display:flex;list-style:none;gap:2rem}
     .nav-menu a{color:#F9F6F0;text-decoration:none}
 
     /* Hero */
@@ -99,7 +100,7 @@
     .footer{background:var(--deep-purple);color:#F9F6F0;padding:3rem 0 1.5rem;text-align:center}
     .footer h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--royal-gold);margin-bottom:1.2rem}
 
-    /* --- 360° rotation animation --- */
+    /* 360° rotation animation */
     @keyframes spin360 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     /* Respect reduced motion preferences */
@@ -120,9 +121,9 @@
   <!-- Header -->
   <header class="header">
     <nav class="nav-container">
-      <!-- Rotating logo -->
+      <!-- Rotating transparent PNG logo -->
       <a href="#home" class="logo-link" aria-label="Christ the King Christian Center - Home">
-        <img src="Logo.jpeg" alt="Christ the King Christian Center logo" class="logo-img" />
+        <img src="Logo.png" alt="Christ the King Christian Center logo" class="logo-img">
       </a>
 
       <ul class="nav-menu">
@@ -143,7 +144,7 @@
       <p class="description">People from different parts of the world come together to worship and glorify God. Experience dynamic Praise &amp; Worship where God is enthroned in the praises of His people.</p>
       <div class="cta-buttons">
         <a href="#services" class="btn btn-primary">Join Our Services</a>
-        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-secondary" target="_blank" rel="noopener">Join Us on YouTube</a>
+        <a class="btn btn-secondary" href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" target="_blank" rel="noopener">Join Us on YouTube</a>
       </div>
     </div>
   </section>
@@ -159,6 +160,7 @@
         <h2 class="section-title">About Our Church</h2>
         <div class="about-grid">
 
+          <!-- Background -->
           <div class="about-card">
             <h3>Background</h3>
             <p>
