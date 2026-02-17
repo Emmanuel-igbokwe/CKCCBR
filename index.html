@@ -6,7 +6,7 @@
   <title>Christ the King Christian Center | International Worship Church | Baton Rouge, LA</title>
   <meta name="description" content="Join Christ the King Christian Center - An International Pentecostal Church in Baton Rouge, Louisiana. Experience dynamic worship, prayer, and life-changing truth from God's Word.">
 
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+Pro:wght@300;400;600&display=swap" rel="stylesheet">
@@ -44,19 +44,18 @@
       display:flex;justify-content:space-between;align-items:center;
     }
 
-    /* Replaced text logo with image logo */
-    .logo-link{
-      display:inline-flex;align-items:center;text-decoration:none;
-    }
+    /* Image logo (always rotating) */
+    .logo-link{display:inline-flex;align-items:center;text-decoration:none}
     .logo-img{
-      height:48px;           /* adjust 44–64px to taste */
+      height:64px;         /* increased size on mobile */
       width:auto;display:block;
       filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
-      transition:transform .2s ease;
       transform-origin:50% 50%;
+      animation: spin360 18s linear infinite;   /* always rotate */
+      will-change: transform;
     }
     @media (min-width: 992px){
-      .logo-img{height:56px;}
+      .logo-img{height:84px;}                   /* increased size on desktop */
     }
 
     .nav-menu{display:flex;list-style:none;gap:2.2rem}
@@ -101,36 +100,12 @@
     .footer h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--royal-gold);margin-bottom:1.2rem}
 
     /* --- 360° rotation animation --- */
-    @keyframes spin360 {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
+    @keyframes spin360 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    /* Option A (default): rotate once on hover/focus */
-    .logo-spin:hover,
-    .logo-spin:focus {
-      animation: spin360 1.25s linear 1;
-    }
-
-    /* Accessibility: respect reduced motion preferences */
+    /* Respect reduced motion preferences */
     @media (prefers-reduced-motion: reduce) {
-      .logo-img { transition: none; }
-      .logo-spin:hover, .logo-spin:focus { animation: none; }
+      .logo-img { animation: none !important; }
     }
-
-    /* ---- Option B (continuous spin) ----
-       To enable continuous gentle spin, comment out the hover/focus
-       rule above and uncomment the two rules below.
-    */
-    /*
-    .logo-spin {
-      animation: spin360 18s linear infinite;
-      will-change: transform;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .logo-spin { animation: none; }
-    }
-    */
   </style>
 </head>
 <body>
@@ -145,9 +120,9 @@
   <!-- Header -->
   <header class="header">
     <nav class="nav-container">
-      <!-- Replaced text with rotating logo image -->
+      <!-- Rotating logo -->
       <a href="#home" class="logo-link" aria-label="Christ the King Christian Center - Home">
-        <img src="Logo.jpeg" alt="Christ the King Christian Center logo" class="logo-img logo-spin">
+        <img src="Logo.jpeg" alt="Christ the King Christian Center logo" class="logo-img" />
       </a>
 
       <ul class="nav-menu">
@@ -184,7 +159,6 @@
         <h2 class="section-title">About Our Church</h2>
         <div class="about-grid">
 
-          <!-- Background (UPDATED TEXT) -->
           <div class="about-card">
             <h3>Background</h3>
             <p>
