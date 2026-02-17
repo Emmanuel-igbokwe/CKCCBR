@@ -41,41 +41,41 @@
     }
     .nav-container{
       max-width:1400px;margin:0 auto;
-      padding:0.9rem 2rem;     /* slightly tighter to balance larger logo */
+      padding:0.9rem 2rem;
       display:flex;justify-content:space-between;align-items:center;
       gap:1rem;
     }
 
-    /* Logo (always rotating) */
+    /* Logo */
     .logo-link{
       display:inline-flex;
       align-items:center;
       text-decoration:none;
-      margin-left:-12px;       /* move logo further left; adjust -8 to -16px if needed */
+      margin-left:-12px;
     }
     .logo-img{
-      height:72px;             /* increased size on mobile */
+      height:72px;
       width:auto;display:block;
       transform-origin:50% 50%;
-      animation: spin360 18s linear infinite;   /* always rotating */
+      animation: spin360 18s linear infinite;
       will-change: transform;
       filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
     }
     @media (min-width: 992px){
-      .logo-img{height:96px;}  /* increased size on desktop */
+      .logo-img{height:96px;}
     }
 
-    .nav-menu{display:flex;list-style:none;gap:1.8rem} /* slightly tighter gap */
+    .nav-menu{display:flex;list-style:none;gap:1.8rem}
     .nav-menu a{color:#F9F6F0;text-decoration:none}
 
     /* Hero */
     .hero{
       height:100vh;display:flex;align-items:center;justify-content:center;
       text-align:center;color:var(--soft-white);position:relative;
-      padding-top:140px;        /* ensures the big title doesn't collide with fixed header */
+      padding-top:100px;      /* LIFTED TITLE UP */
     }
     @media (min-width: 992px){
-      .hero{ padding-top:160px; }
+      .hero{ padding-top:120px; } /* LIFTED TITLE UP */
     }
     .hero-content{max-width:900px;padding:2rem}
     .hero h1{
@@ -110,29 +110,28 @@
     .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2rem}
     .service-item{text-align:left;padding:1.5rem;background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.12);border-radius:12px}
     .service-item h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--royal-gold);margin-bottom:.25rem}
-    .service-time{font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
-    .service-description{opacity:.95;line-height:1.65}
 
     .donation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:2rem;align-items:center;margin-top:2rem}
     .donation-methods{display:grid;gap:1rem}
     .payment-method{background:#F9F6F0;padding:1.4rem;border-radius:12px;border:2px solid rgba(212,175,55,.3);display:flex;align-items:center;gap:1rem;justify-content:space-between}
     .payment-info h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--deep-purple);margin-bottom:.25rem}
-    .payment-details{color:var(--charcoal);font-weight:700}
 
     .footer{background:var(--deep-purple);color:#F9F6F0;padding:3rem 0 1.5rem;text-align:center}
     .footer h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--royal-gold);margin-bottom:1.2rem}
 
-    /* 360° rotation animation */
+    /* 360° rotation */
     @keyframes spin360 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    /* Respect reduced motion preferences */
+    /* Reduced Motion */
     @media (prefers-reduced-motion: reduce) {
       .logo-img { animation: none !important; }
     }
   </style>
 </head>
+
 <body>
-  <!-- Video Background -->
+
+  <!-- Background Video -->
   <div class="video-background">
     <video autoplay muted loop id="bgVideo" playsinline>
       <source src="videoplayback.mp4" type="video/mp4">
@@ -143,7 +142,6 @@
   <!-- Header -->
   <header class="header">
     <nav class="nav-container">
-      <!-- Rotating transparent PNG logo -->
       <a href="#home" class="logo-link" aria-label="Christ the King Christian Center Home">
         <img src="Logo.png" alt="Christ the King Christian Center logo" class="logo-img" />
       </a>
@@ -163,19 +161,20 @@
     <div class="hero-content">
       <h1>Christ the King Christian Center</h1>
       <p class="subtitle">An International Christian Worship Church</p>
-      <p class="description">People from different parts of the world come together to worship and glorify God. Experience dynamic Praise &amp; Worship where God is enthroned in the praises of His people.</p>
+      <p class="description">People from different parts of the world come together to worship and glorify God. Experience dynamic Praise & Worship where God is enthroned in the praises of His people.</p>
       <div class="cta-buttons">
         <a href="#services" class="btn btn-primary">Join Our Services</a>
-        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-secondary" target="_blank" rel="noopener">Join Us on YouTube</a>
+        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-secondary" target="_blank">Join Us on YouTube</a>
       </div>
     </div>
   </section>
 
-  <!-- Audio Control -->
+  <!-- Audio Button -->
   <button class="audio-control" id="audioToggle">🔊 Enable Audio</button>
 
-  <!-- Main -->
+  <!-- Main Content -->
   <main class="main-content">
+
     <!-- About -->
     <section id="about" class="section">
       <div class="container">
@@ -187,10 +186,6 @@
             <p>
               Christ the King Christian Center began on January 03, 1999 with 3 families as God laid the vision on
               <strong>Apostle Chibuike Azuoru</strong> and his wife, <strong>Pastor Mary Azuoru</strong>.
-              Following Apostle Chibuike’s ordination by Pastor J.D. Brown of Faith Chapel Church of God,
-              they established a worship fellowship where believers could grow, serve, and develop their spiritual gifts.
-              Today, what began with only 3 families has grown into an International Christian Worship Church drawing
-              people from all walks of life and nations.
             </p>
           </div>
 
@@ -201,7 +196,7 @@
 
           <div class="about-card">
             <h3>Our Vision</h3>
-            <p>A vibrant, multi-ethnic, multi-generational church where the truth sets people free, and the nations rejoice in Christ the King. We are committed to helping you learn life-changing truths.</p>
+            <p>A vibrant, multi-ethnic, multi-generational church where the truth sets people free, and the nations rejoice in Christ the King.</p>
           </div>
 
         </div>
@@ -212,37 +207,34 @@
     <section id="services" class="section services-section">
       <div class="container">
         <h2 class="section-title" style="color:#D4AF37">Service Times</h2>
-        <div class="services-grid">
 
+        <div class="services-grid">
           <div class="service-item">
             <h3>Sunday Worship Service</h3>
             <p class="service-time">10:00 AM</p>
-            <p class="service-description">Experience dynamic worship, powerful biblical preaching, and warm fellowship every Sunday morning as we gather to glorify God together.</p>
+            <p class="service-description">Experience dynamic worship and powerful preaching.</p>
           </div>
 
           <div class="service-item">
-            <h3>Bible Study &amp; Prayer</h3>
+            <h3>Bible Study & Prayer</h3>
             <p class="service-time">Wednesday 7:00 PM</p>
-            <p class="service-description">Dive deeper into God's Word through interactive Bible study sessions, followed by prayer and intercession for our community and the world.</p>
+            <p class="service-description">Grow in the Word and intercede for our community.</p>
           </div>
 
           <div class="service-item">
             <h3>Choir Rehearsal</h3>
             <p class="service-time">Friday 7:00 PM</p>
-            <p class="service-description">Our praise team comes together to rehearse in one accord, preparing hearts and voices for Sunday's worship and praise service.</p>
+            <p class="service-description">Praise team prepares to lead worship each week.</p>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- Donation -->
+    <!-- Giving -->
     <section id="donation" class="section donation-section">
       <div class="container">
         <h2 class="section-title">Partnership Through Giving</h2>
-        <p style="text-align:center;font-size:1.1rem;margin-bottom:2rem;opacity:.9">
-          We give as an act of worship and obedience, partnering with God's mission locally and globally.
-        </p>
+        <p style="text-align:center;font-size:1.1rem;margin-bottom:2rem;">We give as an act of worship and obedience.</p>
 
         <div class="donation-grid">
           <div class="donation-methods">
@@ -252,7 +244,7 @@
                 <h3>Online Giving</h3>
                 <p class="payment-details">SimpleChurch Giving (secure)</p>
               </div>
-              <a class="btn btn-primary" href="https://www.simplechurchgiving.net/app/giving/chri4407263" target="_blank" rel="noopener">Donate Now</a>
+              <a class="btn btn-primary" href="https://www.simplechurchgiving.net/app/giving/chri4407263" target="_blank">Donate Now</a>
             </div>
 
             <div class="payment-method">
@@ -260,7 +252,7 @@
                 <h3>Cash App</h3>
                 <p class="payment-details">$Christthekingchrisu</p>
               </div>
-              <a class="btn" href="https://cash.app/$Christthekingchrisu" target="_blank" rel="noopener">Open</a>
+              <a class="btn" href="https://cash.app/$Christthekingchrisu" target="_blank">Open</a>
             </div>
 
             <div class="payment-method">
@@ -278,16 +270,16 @@
             </div>
 
           </div>
-          <!-- QR codes removed by request -->
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- Footer -->
   <footer id="contact" class="footer">
     <div class="footer-content">
-      <h3>Contact &amp; Location</h3>
+      <h3>Contact & Location</h3>
       <div class="contact-info">
         <p><strong>Christ the King Christian Center</strong><br>An International Christian Worship Church</p>
         <p><strong>Address:</strong> 4407 N. Sherwood Forest Drive<br>Baton Rouge, Louisiana 70814</p>
@@ -301,10 +293,10 @@
   </footer>
 
   <script>
-    // Set current year
+    // Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Audio toggle
+    // Audio Control
     const video = document.getElementById('bgVideo');
     const audioToggle = document.getElementById('audioToggle');
     let isAudioEnabled = false;
@@ -322,20 +314,28 @@
       }
     });
 
-    // Smooth scroll
+    // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         const href = a.getAttribute('href');
         if (href && href !== '#') {
           const t = document.querySelector(href);
-          if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+          if (t) {
+            e.preventDefault();
+            t.scrollIntoView({behavior:'smooth',block:'start'});
+          }
         }
       });
     });
 
-    // Ensure video plays (muted autoplay)
-    window.addEventListener('load', () => { if (video.paused) { video.play().catch(()=>{}); } });
-    document.addEventListener('touchstart', () => { if (video.paused) video.play(); }, { once:true });
+    // Ensure video plays on load
+    window.addEventListener('load', () => {
+      if (video.paused) { video.play().catch(()=>{}); }
+    });
+    document.addEventListener('touchstart', () => {
+      if (video.paused) video.play();
+    }, { once:true });
   </script>
+
 </body>
 </html>
