@@ -6,7 +6,6 @@
   <title>Christ the King Christian Center | International Worship Church | Baton Rouge, LA</title>
   <meta name="description" content="Join Christ the King Christian Center - An International Pentecostal Church in Baton Rouge, Louisiana. Experience dynamic worship, prayer, and life-changing truth from God's Word.">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+Pro:wght@300;400;600&display=swap" rel="stylesheet">
@@ -18,113 +17,548 @@
       --cream:#F9F6F0;
       --charcoal:#2C2C2C;
       --soft-white:#FFFFFF;
+      --muted:#6c6c6c;
       --gradient-primary:linear-gradient(135deg,var(--royal-gold) 0%,#B8941F 100%);
       --gradient-secondary:linear-gradient(135deg,var(--deep-purple) 0%,#1A0F26 100%);
-      --gradient-overlay:linear-gradient(rgba(43,27,61,.7),rgba(43,27,61,.85));
+      --gradient-overlay:linear-gradient(rgba(43,27,61,.68),rgba(43,27,61,.88));
+      --shadow-lg:0 18px 45px rgba(0,0,0,.18);
+      --shadow-sm:0 8px 20px rgba(0,0,0,.08);
+      --radius-xl:18px;
+      --radius-lg:14px;
+      --radius-md:10px;
+      --max-width:1240px;
     }
 
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Source Serif Pro',serif;line-height:1.6;color:var(--charcoal);overflow-x:hidden}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Source Serif Pro',serif;
+      line-height:1.6;
+      color:var(--charcoal);
+      overflow-x:hidden;
+      background:var(--cream);
+    }
+
+    a{color:inherit}
+    img{max-width:100%;display:block}
 
     /* Background video */
-    .video-background{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-2;overflow:hidden}
-    .video-background video{width:100%;height:100%;object-fit:cover}
-    .video-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--gradient-overlay);z-index:-1}
+    .video-background{
+      position:fixed;
+      top:0;left:0;
+      width:100vw;height:100vh;
+      z-index:-2;
+      overflow:hidden;
+      background:#000;
+    }
+    .video-background video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .video-overlay{
+      position:fixed;
+      top:0;left:0;
+      width:100vw;height:100vh;
+      background:var(--gradient-overlay);
+      z-index:-1;
+    }
 
-    /* Header & Nav */
+    /* Header */
     .header{
-      position:fixed;top:0;width:100%;z-index:1000;
-      background:rgba(43,27,61,.95);
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:1000;
+      background:rgba(43,27,61,.94);
       backdrop-filter:blur(20px);
-      border-bottom:1px solid rgba(212,175,55,.3);
-      transition:.3s;
+      border-bottom:1px solid rgba(212,175,55,.25);
+      transition:.3s ease;
     }
     .nav-container{
-      max-width:1400px;margin:0 auto;
-      padding:0.9rem 2rem;
-      display:flex;justify-content:space-between;align-items:center;
+      max-width:1400px;
+      margin:0 auto;
+      padding:.9rem 1.25rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
       gap:1rem;
     }
 
-    /* Logo */
     .logo-link{
       display:inline-flex;
       align-items:center;
       text-decoration:none;
-      margin-left:-12px;
+      margin-left:-8px;
+      flex-shrink:0;
     }
     .logo-img{
       height:72px;
-      width:auto;display:block;
+      width:auto;
       transform-origin:50% 50%;
-      animation: spin360 18s linear infinite;
-      will-change: transform;
-      filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
+      animation:spin360 18s linear infinite;
+      will-change:transform;
+      filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
     }
-    @media (min-width: 992px){
-      .logo-img{height:96px;}
+    @media (min-width:992px){
+      .logo-img{height:96px}
     }
 
-    .nav-menu{display:flex;list-style:none;gap:1.8rem}
-    .nav-menu a{color:#F9F6F0;text-decoration:none}
+    .nav-menu{
+      display:flex;
+      list-style:none;
+      gap:1.5rem;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav-menu a{
+      color:#F9F6F0;
+      text-decoration:none;
+      font-size:1rem;
+      font-weight:600;
+      position:relative;
+      transition:.2s ease;
+    }
+    .nav-menu a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-4px;
+      width:0;
+      height:2px;
+      background:var(--royal-gold);
+      transition:.25s ease;
+    }
+    .nav-menu a:hover::after{width:100%}
+    .nav-menu a:hover{color:var(--royal-gold)}
 
     /* Hero */
     .hero{
-      height:100vh;display:flex;align-items:center;justify-content:center;
-      text-align:center;color:var(--soft-white);position:relative;
-      padding-top:100px;      /* LIFTED TITLE UP */
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:var(--soft-white);
+      position:relative;
+      padding:130px 1rem 70px;
     }
-    @media (min-width: 992px){
-      .hero{ padding-top:120px; } /* LIFTED TITLE UP */
+    .hero-content{
+      max-width:940px;
+      padding:2rem 1rem;
     }
-    .hero-content{max-width:900px;padding:2rem}
+    .live-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.55rem 1rem;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(212,175,55,.35);
+      color:#fff;
+      font-size:.95rem;
+      margin-bottom:1.35rem;
+      backdrop-filter:blur(10px);
+    }
+    .live-dot{
+      width:10px;height:10px;border-radius:50%;
+      background:#ff3b3b;
+      box-shadow:0 0 0 0 rgba(255,59,59,.8);
+      animation:pulse 1.5s infinite;
+    }
     .hero h1{
       font-family:'Playfair Display',serif;
-      font-size:clamp(2.2rem,5.5vw,3.6rem);
-      font-weight:700;margin-bottom:1.1rem;
-      text-shadow:2px 2px 10px rgba(0,0,0,.7);
+      font-size:clamp(2.3rem,5vw,4rem);
+      font-weight:700;
+      margin-bottom:1rem;
+      text-shadow:2px 3px 12px rgba(0,0,0,.6);
     }
-    .subtitle{font-size:clamp(1rem,2.4vw,1.6rem);font-weight:400;margin-bottom:1.2rem;opacity:.95}
-    .description{font-size:1.05rem;margin-bottom:2rem;opacity:.95;line-height:1.8}
-    .cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-    .btn{padding:.85rem 1.8rem;border:none;border-radius:40px;font-size:1rem;font-weight:700;text-decoration:none;display:inline-block;transition:.2s;cursor:pointer;text-transform:uppercase;letter-spacing:.6px}
-    .btn-primary{background:var(--gradient-primary);color:var(--deep-purple)}
-    .btn-secondary{background:transparent;color:#F9F6F0;border:2px solid var(--royal-gold)}
+    .subtitle{
+      font-size:clamp(1.05rem,2.2vw,1.55rem);
+      margin-bottom:1rem;
+      opacity:.96;
+    }
+    .description{
+      font-size:1.08rem;
+      margin:0 auto 2rem;
+      opacity:.95;
+      line-height:1.85;
+      max-width:820px;
+    }
+    .cta-buttons{
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:.9rem 1.7rem;
+      border:none;
+      border-radius:999px;
+      font-size:1rem;
+      font-weight:700;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition:.25s ease;
+      cursor:pointer;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      min-width:190px;
+      box-shadow:var(--shadow-sm);
+    }
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+    .btn-primary{
+      background:var(--gradient-primary);
+      color:var(--deep-purple);
+    }
+    .btn-secondary{
+      background:transparent;
+      color:#F9F6F0;
+      border:2px solid var(--royal-gold);
+    }
+    .btn-dark{
+      background:var(--gradient-secondary);
+      color:#fff;
+    }
 
     .audio-control{
-      position:fixed;bottom:1.4rem;right:1.4rem;z-index:1000;
-      background:var(--gradient-primary);border:none;border-radius:40px;
-      padding:.8rem 1.2rem;color:#1A0F26;font-weight:700;cursor:pointer
+      position:fixed;
+      bottom:1.2rem;
+      right:1.2rem;
+      z-index:1000;
+      background:var(--gradient-primary);
+      border:none;
+      border-radius:999px;
+      padding:.85rem 1.15rem;
+      color:#1A0F26;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:var(--shadow-lg);
     }
 
-    /* Main sections */
-    .main-content{background:var(--cream);position:relative;z-index:10}
-    .container{max-width:1200px;margin:0 auto;padding:0 1.25rem}
-    .section{padding:4.5rem 0}
-    .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3rem);text-align:center;margin-bottom:2rem;color:var(--deep-purple)}
+    /* Main */
+    .main-content{
+      background:var(--cream);
+      position:relative;
+      z-index:10;
+      border-top-left-radius:24px;
+      border-top-right-radius:24px;
+      margin-top:-18px;
+      overflow:hidden;
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 1.25rem;
+    }
+    .section{
+      padding:5rem 0;
+    }
+    .section-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,4vw,3rem);
+      text-align:center;
+      margin-bottom:1rem;
+      color:var(--deep-purple);
+    }
+    .section-subtitle{
+      max-width:760px;
+      margin:0 auto 2.2rem;
+      text-align:center;
+      color:var(--muted);
+      font-size:1.08rem;
+    }
 
-    .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;margin-top:2rem}
-    .about-card{background:var(--soft-white);padding:2rem;border-radius:16px;border:1px solid rgba(212,175,55,.2)}
+    /* Live stream section */
+    .live-section{
+      background:#0f0a16;
+      color:#fff;
+    }
+    .live-wrapper{
+      display:grid;
+      grid-template-columns:1.4fr .9fr;
+      gap:2rem;
+      align-items:start;
+    }
+    .video-card,
+    .info-card,
+    .about-card,
+    .media-card,
+    .ministry-card,
+    .payment-method,
+    .contact-card{
+      background:var(--soft-white);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-sm);
+    }
+    .video-card{
+      background:#141414;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .video-embed{
+      position:relative;
+      width:100%;
+      aspect-ratio:16/9;
+      background:#000;
+    }
+    .video-embed iframe{
+      width:100%;
+      height:100%;
+      border:none;
+    }
+    .video-meta{
+      padding:1.2rem 1.25rem 1.35rem;
+      color:#fff;
+    }
+    .video-meta h3{
+      font-family:'Playfair Display',serif;
+      color:var(--royal-gold);
+      font-size:1.6rem;
+      margin-bottom:.45rem;
+    }
+    .video-meta p{
+      color:rgba(255,255,255,.88);
+    }
 
-    .services-section{background:var(--gradient-secondary);color:#F9F6F0}
-    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2rem}
-    .service-item{text-align:left;padding:1.5rem;background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.12);border-radius:12px}
-    .service-item h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--royal-gold);margin-bottom:.25rem}
+    .info-card{
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.08);
+      padding:1.5rem;
+      backdrop-filter:blur(12px);
+    }
+    .info-card h3{
+      font-family:'Playfair Display',serif;
+      color:var(--royal-gold);
+      margin-bottom:.85rem;
+      font-size:1.5rem;
+    }
+    .info-list{
+      display:grid;
+      gap:1rem;
+      margin:1rem 0 1.5rem;
+    }
+    .info-item{
+      padding:1rem;
+      border-radius:12px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .info-item strong{
+      display:block;
+      color:#fff;
+      margin-bottom:.2rem;
+    }
+    .small-note{
+      font-size:.95rem;
+      color:rgba(255,255,255,.82);
+    }
 
-    .donation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:2rem;align-items:center;margin-top:2rem}
-    .donation-methods{display:grid;gap:1rem}
-    .payment-method{background:#F9F6F0;padding:1.4rem;border-radius:12px;border:2px solid rgba(212,175,55,.3);display:flex;align-items:center;gap:1rem;justify-content:space-between}
-    .payment-info h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--deep-purple);margin-bottom:.25rem}
+    /* About */
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+    .about-card{
+      padding:2rem;
+      border:1px solid rgba(212,175,55,.18);
+    }
+    .about-card h3{
+      font-family:'Playfair Display',serif;
+      color:var(--deep-purple);
+      font-size:1.45rem;
+      margin-bottom:.7rem;
+    }
 
-    .footer{background:var(--deep-purple);color:#F9F6F0;padding:3rem 0 1.5rem;text-align:center}
-    .footer h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--royal-gold);margin-bottom:1.2rem}
+    /* Ministries */
+    .ministries-section{
+      background:var(--gradient-secondary);
+      color:#F9F6F0;
+    }
+    .ministries-section .section-title{color:var(--royal-gold)}
+    .ministries-section .section-subtitle{color:rgba(255,255,255,.84)}
+    .ministries-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:1.3rem;
+      margin-top:2rem;
+    }
+    .ministry-card{
+      background:rgba(255,255,255,.07);
+      color:#fff;
+      padding:1.6rem;
+      border:1px solid rgba(255,255,255,.11);
+      backdrop-filter:blur(8px);
+    }
+    .ministry-card h3{
+      font-family:'Playfair Display',serif;
+      color:var(--royal-gold);
+      margin-bottom:.35rem;
+      font-size:1.35rem;
+    }
+    .ministry-time{
+      font-weight:700;
+      margin-bottom:.5rem;
+      color:#fff;
+    }
 
-    /* 360° rotation */
-    @keyframes spin360 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    /* Media / Archive */
+    .media-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.4rem;
+      margin-top:2rem;
+    }
+    .media-card{
+      overflow:hidden;
+      border:1px solid rgba(212,175,55,.16);
+      background:#fff;
+    }
+    .media-thumb{
+      aspect-ratio:16/9;
+      background:#f1ece3;
+    }
+    .media-thumb iframe{
+      width:100%;
+      height:100%;
+      border:none;
+    }
+    .media-body{
+      padding:1.15rem;
+    }
+    .media-body h3{
+      font-family:'Playfair Display',serif;
+      color:var(--deep-purple);
+      font-size:1.25rem;
+      margin-bottom:.4rem;
+    }
+    .media-body p{
+      color:#555;
+      margin-bottom:1rem;
+    }
 
-    /* Reduced Motion */
-    @media (prefers-reduced-motion: reduce) {
-      .logo-img { animation: none !important; }
+    /* Giving */
+    .donation-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:1.4rem;
+      align-items:start;
+      margin-top:2rem;
+    }
+    .donation-methods{
+      display:grid;
+      gap:1rem;
+    }
+    .payment-method{
+      padding:1.35rem;
+      border:2px solid rgba(212,175,55,.23);
+      display:flex;
+      gap:1rem;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .payment-info h3{
+      font-family:'Playfair Display',serif;
+      font-size:1.2rem;
+      color:var(--deep-purple);
+      margin-bottom:.2rem;
+    }
+    .payment-details{color:#555}
+
+    /* Contact */
+    .contact-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+    .contact-card{
+      padding:1.7rem;
+      border:1px solid rgba(212,175,55,.16);
+    }
+    .contact-card h3{
+      font-family:'Playfair Display',serif;
+      color:var(--deep-purple);
+      margin-bottom:.7rem;
+    }
+
+    /* Footer */
+    .footer{
+      background:var(--deep-purple);
+      color:#F9F6F0;
+      padding:3rem 0 1.5rem;
+      text-align:center;
+    }
+    .footer h3{
+      font-family:'Playfair Display',serif;
+      font-size:1.7rem;
+      color:var(--royal-gold);
+      margin-bottom:1rem;
+    }
+    .footer p{margin-bottom:.5rem}
+    .copyright{
+      margin-top:1.5rem;
+      opacity:.9;
+      font-size:.95rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .live-wrapper{
+        grid-template-columns:1fr;
+      }
+      .nav-container{
+        flex-direction:column;
+        align-items:center;
+      }
+      .nav-menu{
+        justify-content:center;
+        gap:1rem;
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero{
+        padding-top:150px;
+      }
+      .btn{
+        width:100%;
+        max-width:320px;
+      }
+      .payment-method{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .audio-control{
+        bottom:1rem;
+        right:1rem;
+        font-size:.92rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important}
+      .logo-img{animation:none !important}
+      .live-dot{animation:none !important}
+      .btn:hover{transform:none}
+    }
+
+    @keyframes spin360{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(255,59,59,.8)}
+      70%{box-shadow:0 0 0 12px rgba(255,59,59,0)}
+      100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}
     }
   </style>
 </head>
@@ -148,8 +582,10 @@
 
       <ul class="nav-menu">
         <li><a href="#home">Home</a></li>
+        <li><a href="#live">Live</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
+        <li><a href="#ministries">Ministries</a></li>
+        <li><a href="#media">Media</a></li>
         <li><a href="#donation">Give</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -159,12 +595,24 @@
   <!-- Hero -->
   <section id="home" class="hero">
     <div class="hero-content">
+      <div class="live-pill">
+        <span class="live-dot"></span>
+        <span>Join us in worship online and in person</span>
+      </div>
+
       <h1>Christ the King Christian Center</h1>
       <p class="subtitle">An International Christian Worship Church</p>
-      <p class="description">People from different parts of the world come together to worship and glorify God. Experience dynamic Praise & Worship where God is enthroned in the praises of His people.</p>
+      <p class="description">
+        People from different parts of the world come together to worship and glorify God.
+        Experience dynamic praise, fervent prayer, and life-changing truth from God’s Word in a loving church family.
+      </p>
+
       <div class="cta-buttons">
-        <a href="#services" class="btn btn-primary">Join Our Services</a>
-        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-secondary" target="_blank" rel="noopener">Join Us on YouTube</a>
+        <a href="#live" class="btn btn-primary">Watch Live Service</a>
+        <a href="#ministries" class="btn btn-secondary">Explore Ministries</a>
+        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-dark" target="_blank" rel="noopener">
+          Visit YouTube Channel
+        </a>
       </div>
     </div>
   </section>
@@ -175,16 +623,82 @@
   <!-- Main Content -->
   <main class="main-content">
 
+    <!-- Live Section -->
+    <section id="live" class="section live-section">
+      <div class="container">
+        <h2 class="section-title" style="color:#D4AF37;">Sunday Live Service</h2>
+        <p class="section-subtitle" style="color:rgba(255,255,255,.85);">
+          Worship with us live online. You can watch right here in the app or open the service directly on YouTube.
+        </p>
+
+        <div class="live-wrapper">
+          <div class="video-card">
+            <div class="video-embed">
+              <iframe
+                src="https://www.youtube.com/embed/99IzQ8F0T-M"
+                title="Christ the King Christian Center Sunday Live Service"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="video-meta">
+              <h3>Watch Live on the Website</h3>
+              <p>
+                Join Sunday worship service live from Christ the King Christian Center.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3>Service Information</h3>
+
+            <div class="info-list">
+              <div class="info-item">
+                <strong>Sunday Worship Service</strong>
+                10:00 AM
+              </div>
+
+              <div class="info-item">
+                <strong>Watch on YouTube</strong>
+                Click below to open the service directly in YouTube.
+              </div>
+
+              <div class="info-item">
+                <strong>Church Channel</strong>
+                Subscribe and stay connected for live streams, sermons, and updates.
+              </div>
+            </div>
+
+            <div class="cta-buttons" style="justify-content:flex-start;">
+              <a href="https://www.youtube.com/live/99IzQ8F0T-M?si=UGL_moSnJCvgmtZa" class="btn btn-primary" target="_blank" rel="noopener">
+                ▶ Watch on YouTube
+              </a>
+              <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-secondary" target="_blank" rel="noopener">
+                Subscribe
+              </a>
+            </div>
+
+            <p class="small-note" style="margin-top:1rem;">
+              Replace the video link anytime by changing the YouTube video ID in the iframe and button URLs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- About -->
     <section id="about" class="section">
       <div class="container">
         <h2 class="section-title">About Our Church</h2>
-        <div class="about-grid">
+        <p class="section-subtitle">
+          A welcoming church family committed to worship, prayer, sound teaching, and raising disciples for the Kingdom of God.
+        </p>
 
+        <div class="about-grid">
           <div class="about-card">
             <h3>Background</h3>
             <p>
-               Christ the King Christian Center began on January 03, 1999 with 3 families as God laid the vision on
+              Christ the King Christian Center began on January 03, 1999 with 3 families as God laid the vision on
               <strong>Apostle Chibuike Azuoru</strong> and his wife, <strong>Pastor Mary Azuoru</strong>.
               Following Apostle Chibuike’s ordination by Pastor J.D. Brown of Faith Chapel Church of God,
               they established a worship fellowship where believers could grow, serve, and develop their spiritual gifts.
@@ -195,40 +709,130 @@
 
           <div class="about-card">
             <h3>Our Mission</h3>
-            <p>To glorify Jesus Christ through worship, prayer, the Word, and loving community—equipping believers to be overcomers who impact others for the Kingdom of God.</p>
+            <p>
+              To glorify Jesus Christ through worship, prayer, the Word, and loving community—equipping believers
+              to be overcomers who impact others for the Kingdom of God.
+            </p>
           </div>
 
           <div class="about-card">
             <h3>Our Vision</h3>
-            <p>A vibrant, multi-ethnic, multi-generational church where the truth sets people free, and the nations rejoice in Christ the King.</p>
+            <p>
+              A vibrant, multi-ethnic, multi-generational church where the truth sets people free,
+              lives are transformed, and the nations rejoice in Christ the King.
+            </p>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- Services -->
-    <section id="services" class="section services-section">
+    <!-- Ministries -->
+    <section id="ministries" class="section ministries-section">
       <div class="container">
-        <h2 class="section-title" style="color:#D4AF37">Service Times</h2>
+        <h2 class="section-title">Our Ministries</h2>
+        <p class="section-subtitle">
+          There is a place for everyone to grow, serve, and encounter God.
+        </p>
 
-        <div class="services-grid">
-          <div class="service-item">
-            <h3>Sunday Worship Service</h3>
-            <p class="service-time">10:00 AM</p>
-            <p class="service-description">Experience dynamic worship and powerful preaching.</p>
+        <div class="ministries-grid">
+          <div class="ministry-card">
+            <h3>Sunday Worship</h3>
+            <p class="ministry-time">Sunday • 10:00 AM</p>
+            <p>
+              Experience dynamic worship, heartfelt prayer, and transformational preaching from the Word of God.
+            </p>
           </div>
 
-          <div class="service-item">
+          <div class="ministry-card">
             <h3>Bible Study & Prayer</h3>
-            <p class="service-time">Wednesday 7:00 PM</p>
-            <p class="service-description">Grow in the Word and intercede for our community.</p>
+            <p class="ministry-time">Wednesday • 7:00 PM</p>
+            <p>
+              Grow deeper in Scripture, build your faith, and stand together in prayer for families, church, and community.
+            </p>
           </div>
 
-          <div class="service-item">
-            <h3>Choir Rehearsal</h3>
-            <p class="service-time">Friday 7:00 PM</p>
-            <p class="service-description">Praise team prepares to lead worship each week.</p>
+          <div class="ministry-card">
+            <h3>Choir Ministry</h3>
+            <p class="ministry-time">Friday • 7:00 PM</p>
+            <p>
+              Join the praise team as they prepare to minister through worship and lead the congregation into God’s presence.
+            </p>
+          </div>
+
+          <div class="ministry-card">
+            <h3>Family & Fellowship</h3>
+            <p class="ministry-time">All Week</p>
+            <p>
+              Connect with a loving church family, build meaningful relationships, and grow together in Christ.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Media / Archive -->
+    <section id="media" class="section">
+      <div class="container">
+        <h2 class="section-title">Media & Sermon Archive</h2>
+        <p class="section-subtitle">
+          Stay connected through recent messages, live worship, and our YouTube channel.
+        </p>
+
+        <div class="media-grid">
+          <div class="media-card">
+            <div class="media-thumb">
+              <iframe
+                src="https://www.youtube.com/embed/99IzQ8F0T-M"
+                title="Latest Sunday Service"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="media-body">
+              <h3>Latest Sunday Service</h3>
+              <p>Watch the featured Sunday service directly from the church website.</p>
+              <a href="https://www.youtube.com/live/99IzQ8F0T-M?si=UGL_moSnJCvgmtZa" target="_blank" rel="noopener" class="btn btn-primary">
+                Open on YouTube
+              </a>
+            </div>
+          </div>
+
+          <div class="media-card">
+            <div class="media-thumb">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=UUwElY2wM_GpQDO_RjjR9-eg"
+                title="Church YouTube Uploads"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="media-body">
+              <h3>Recent Uploads</h3>
+              <p>Browse the church’s recent YouTube uploads and sermon media.</p>
+              <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg/videos" target="_blank" rel="noopener" class="btn btn-secondary" style="color:var(--deep-purple); border-color:var(--deep-purple);">
+                View Channel Videos
+              </a>
+            </div>
+          </div>
+
+          <div class="media-card">
+            <div class="media-thumb">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLrAXtmRdnEQy6nuKQ58x35H0TADaBrZEJ"
+                title="Sermon Playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="media-body">
+              <h3>Sermon Playlist</h3>
+              <p>
+                Replace this playlist later with your church’s own sermon playlist for a full archive experience.
+              </p>
+              <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg/playlists" target="_blank" rel="noopener" class="btn btn-dark">
+                View Playlists
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -238,7 +842,9 @@
     <section id="donation" class="section donation-section">
       <div class="container">
         <h2 class="section-title">Partnership Through Giving</h2>
-        <p style="text-align:center;font-size:1.1rem;margin-bottom:2rem;">We give as an act of worship and obedience.</p>
+        <p class="section-subtitle">
+          We give as an act of worship, gratitude, and obedience to God.
+        </p>
 
         <div class="donation-grid">
           <div class="donation-methods">
@@ -248,7 +854,9 @@
                 <h3>Online Giving</h3>
                 <p class="payment-details">SimpleChurch Giving (secure)</p>
               </div>
-              <a class="btn btn-primary" href="https://www.simplechurchgiving.net/app/giving/chri4407263" target="_blank" rel="noopener">Donate Now</a>
+              <a class="btn btn-primary" href="https://www.simplechurchgiving.net/app/giving/chri4407263" target="_blank" rel="noopener">
+                Donate Now
+              </a>
             </div>
 
             <div class="payment-method">
@@ -256,7 +864,9 @@
                 <h3>Cash App</h3>
                 <p class="payment-details">$Christthekingchrisu</p>
               </div>
-              <a class="btn" href="https://cash.app/$Christthekingchrisu" target="_blank" rel="noopener">Open</a>
+              <a class="btn btn-secondary" style="color:var(--deep-purple); border-color:var(--deep-purple);" href="https://cash.app/$Christthekingchrisu" target="_blank" rel="noopener">
+                Open
+              </a>
             </div>
 
             <div class="payment-method">
@@ -269,7 +879,11 @@
             <div class="payment-method">
               <div class="payment-info">
                 <h3>Mail a Check</h3>
-                <p class="payment-details">Christ the King Christian Center<br>4407 N. Sherwood Forest Dr<br>Baton Rouge, LA 70814</p>
+                <p class="payment-details">
+                  Christ the King Christian Center<br>
+                  4407 N. Sherwood Forest Dr<br>
+                  Baton Rouge, LA 70814
+                </p>
               </div>
             </div>
 
@@ -278,18 +892,51 @@
       </div>
     </section>
 
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title">Contact & Location</h2>
+        <p class="section-subtitle">
+          We would love to worship with you and welcome you to our church family.
+        </p>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Church Information</h3>
+            <p><strong>Christ the King Christian Center</strong><br>An International Christian Worship Church</p>
+            <p style="margin-top:.7rem;"><strong>Phone:</strong> (225) 272-7279</p>
+            <p><strong>Email:</strong> CKCCBR@gmail.com</p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Location</h3>
+            <p>
+              <strong>Address:</strong><br>
+              4407 N. Sherwood Forest Drive<br>
+              Baton Rouge, Louisiana 70814
+            </p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Service Times</h3>
+            <p><strong>Sunday Worship:</strong> 10:00 AM</p>
+            <p><strong>Bible Study & Prayer:</strong> Wednesday 7:00 PM</p>
+            <p><strong>Choir Rehearsal:</strong> Friday 7:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer -->
-  <footer id="contact" class="footer">
-    <div class="footer-content">
-      <h3>Contact & Location</h3>
-      <div class="contact-info">
-        <p><strong>Christ the King Christian Center</strong><br>An International Christian Worship Church</p>
-        <p><strong>Address:</strong> 4407 N. Sherwood Forest Drive<br>Baton Rouge, Louisiana 70814</p>
-        <p><strong>Phone:</strong> (225) 272-7279</p>
-        <p><strong>Email:</strong> CKCCBR@gmail.com</p>
-      </div>
+  <footer class="footer">
+    <div class="container">
+      <h3>Christ the King Christian Center</h3>
+      <p>An International Christian Worship Church</p>
+      <p>4407 N. Sherwood Forest Drive, Baton Rouge, Louisiana 70814</p>
+      <p>(225) 272-7279 • CKCCBR@gmail.com</p>
+
       <div class="copyright">
         <p>&copy; <span id="currentYear"></span> Christ the King Christian Center - Baton Rouge, LA. All rights reserved.</p>
       </div>
@@ -297,6 +944,15 @@
   </footer>
 
   <script>
+    // ===== Basic config for easy future updates =====
+    const CHURCH_CONFIG = {
+      liveVideoId: "99IzQ8F0T-M",
+      liveVideoUrl: "https://www.youtube.com/live/99IzQ8F0T-M?si=UGL_moSnJCvgmtZa",
+      channelUrl: "https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg",
+      channelVideosUrl: "https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg/videos",
+      playlistUrl: "https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg/playlists"
+    };
+
     // Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -304,6 +960,7 @@
     const video = document.getElementById('bgVideo');
     const audioToggle = document.getElementById('audioToggle');
     let isAudioEnabled = false;
+
     audioToggle.addEventListener('click', () => {
       if (isAudioEnabled) {
         video.muted = true;
@@ -318,27 +975,30 @@
       }
     });
 
-    // Smooth Scroll
+    // Smooth scroll fallback
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         const href = a.getAttribute('href');
         if (href && href !== '#') {
-          const t = document.querySelector(href);
-          if (t) {
+          const target = document.querySelector(href);
+          if (target) {
             e.preventDefault();
-            t.scrollIntoView({behavior:'smooth',block:'start'});
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }
       });
     });
 
-    // Ensure video plays on load
+    // Ensure background video plays
     window.addEventListener('load', () => {
-      if (video.paused) { video.play().catch(()=>{}); }
+      if (video && video.paused) {
+        video.play().catch(() => {});
+      }
     });
+
     document.addEventListener('touchstart', () => {
-      if (video.paused) video.play();
-    }, { once:true });
+      if (video && video.paused) video.play().catch(() => {});
+    }, { once: true });
   </script>
 
 </body>
