@@ -8,918 +8,1078 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Cinzel:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --royal-gold:#D4AF37;
-      --deep-purple:#2B1B3D;
-      --cream:#F9F6F0;
-      --charcoal:#2C2C2C;
-      --soft-white:#FFFFFF;
-      --muted:#6c6c6c;
-      --gradient-primary:linear-gradient(135deg,var(--royal-gold) 0%,#B8941F 100%);
-      --gradient-secondary:linear-gradient(135deg,var(--deep-purple) 0%,#1A0F26 100%);
-      --gradient-overlay:linear-gradient(rgba(43,27,61,.68),rgba(43,27,61,.88));
-      --shadow-lg:0 18px 45px rgba(0,0,0,.18);
-      --shadow-sm:0 8px 20px rgba(0,0,0,.08);
-      --radius-xl:18px;
-      --radius-lg:14px;
-      --radius-md:10px;
-      --max-width:1240px;
+    :root {
+      --gold:       #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark:  #9A7328;
+      --purple:     #1C1028;
+      --purple-mid: #2E1F45;
+      --purple-light:#3D2B5E;
+      --cream:      #F8F3EA;
+      --cream-warm: #EDE5D4;
+      --white:      #FFFFFF;
+      --charcoal:   #1E1E1E;
+      --muted:      #6B6060;
+      --max-w:      1280px;
+      --radius:     16px;
+      --shadow-gold: 0 8px 40px rgba(201,168,76,.22);
+      --shadow-deep: 0 24px 60px rgba(0,0,0,.28);
     }
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:'Source Serif Pro',serif;
-      line-height:1.6;
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Lato', sans-serif;
+      background:var(--cream);
       color:var(--charcoal);
       overflow-x:hidden;
-      background:var(--cream);
+    }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:var(--purple); }
+    ::-webkit-scrollbar-thumb { background:var(--gold); border-radius:4px; }
+
+    /* ─── BACKGROUND VIDEO ─── */
+    .video-bg {
+      position:fixed; inset:0; z-index:-2; background:#0a0612;
+    }
+    .video-bg video { width:100%; height:100%; object-fit:cover; opacity:.55; }
+    .video-overlay {
+      position:fixed; inset:0; z-index:-1;
+      background: linear-gradient(
+        165deg,
+        rgba(28,16,40,.82) 0%,
+        rgba(28,16,40,.70) 50%,
+        rgba(28,16,40,.88) 100%
+      );
     }
 
-    a{color:inherit}
-    img{max-width:100%;display:block}
-
-    .video-background{
-      position:fixed;
-      top:0;left:0;
-      width:100vw;height:100vh;
-      z-index:-2;
-      overflow:hidden;
-      background:#000;
+    /* ─── NAV ─── */
+    .nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      background:rgba(18,10,30,.88);
+      backdrop-filter:blur(28px) saturate(1.6);
+      border-bottom:1px solid rgba(201,168,76,.18);
+      transition:background .3s;
     }
-    .video-background video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-    .video-overlay{
-      position:fixed;
-      top:0;left:0;
-      width:100vw;height:100vh;
-      background:var(--gradient-overlay);
-      z-index:-1;
-    }
-
-    .header{
-      position:fixed;
-      top:0;
-      width:100%;
-      z-index:1000;
-      background:rgba(43,27,61,.94);
-      backdrop-filter:blur(20px);
-      border-bottom:1px solid rgba(212,175,55,.25);
-      transition:.3s ease;
-    }
-    .nav-container{
-      max-width:1400px;
+    .nav-inner {
+      max-width:var(--max-w);
       margin:0 auto;
-      padding:.9rem 1.25rem;
+      padding:.7rem 1.5rem;
       display:flex;
+      align-items:center;
       justify-content:space-between;
-      align-items:center;
-      gap:1rem;
-    }
-
-    .logo-link{
-      display:inline-flex;
-      align-items:center;
-      text-decoration:none;
-      margin-left:-8px;
-      flex-shrink:0;
-    }
-    .logo-img{
-      height:72px;
-      width:auto;
-      transform-origin:50% 50%;
-      animation:spin360 18s linear infinite;
-      will-change:transform;
-      filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
-    }
-    @media (min-width:992px){
-      .logo-img{height:96px}
-    }
-
-    .nav-menu{
-      display:flex;
-      list-style:none;
       gap:1.5rem;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
     }
-    .nav-menu a{
-      color:#F9F6F0;
-      text-decoration:none;
-      font-size:1rem;
-      font-weight:600;
-      position:relative;
-      transition:.2s ease;
+    .logo-wrap {
+      display:flex; align-items:center; gap:.9rem; flex-shrink:0;
     }
-    .nav-menu a::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-4px;
-      width:0;
-      height:2px;
-      background:var(--royal-gold);
-      transition:.25s ease;
+    .logo-img {
+      height:80px; width:auto;
+      animation:spin 22s linear infinite;
+      filter:drop-shadow(0 0 10px rgba(201,168,76,.35));
     }
-    .nav-menu a:hover::after{width:100%}
-    .nav-menu a:hover{color:var(--royal-gold)}
+    @media(min-width:992px){ .logo-img { height:100px; } }
 
-    .hero{
+    .logo-text { display:flex; flex-direction:column; line-height:1.25; }
+    .logo-text strong {
+      font-family:'Cinzel', serif; font-size:1rem; font-weight:700;
+      color:var(--gold-light); letter-spacing:.06em;
+    }
+    .logo-text span {
+      font-family:'Cormorant Garamond', serif; font-size:.9rem; font-style:italic;
+      color:rgba(255,255,255,.65); letter-spacing:.04em;
+    }
+
+    .nav-links {
+      display:flex; list-style:none; gap:2rem; align-items:center; flex-wrap:wrap;
+    }
+    .nav-links a {
+      font-family:'Cinzel', serif; font-size:.8rem; font-weight:600;
+      letter-spacing:.12em; color:rgba(248,243,234,.8);
+      position:relative; padding-bottom:3px; transition:color .2s;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:0; left:0;
+      width:0; height:1px; background:var(--gold);
+      transition:width .3s ease;
+    }
+    .nav-links a:hover { color:var(--gold-light); }
+    .nav-links a:hover::after { width:100%; }
+
+    .nav-cta {
+      background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
+      color:var(--purple) !important;
+      padding:.5rem 1.2rem; border-radius:999px;
+      font-weight:700 !important; transition:transform .2s, box-shadow .2s !important;
+    }
+    .nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,.4); }
+    .nav-cta::after { display:none !important; }
+
+    /* ─── HERO ─── */
+    .hero {
       min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:flex; align-items:center; justify-content:center;
       text-align:center;
-      color:var(--soft-white);
+      padding:160px 1.5rem 90px;
       position:relative;
-      padding:130px 1rem 70px;
+      color:var(--white);
     }
-    .hero-content{
-      max-width:940px;
-      padding:2rem 1rem;
+    .hero::before {
+      content:'';
+      position:absolute; bottom:0; left:0; right:0; height:220px;
+      background:linear-gradient(to bottom, transparent, var(--cream));
+      pointer-events:none; z-index:1;
     }
-    .live-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:.55rem;
-      padding:.55rem 1rem;
-      border-radius:999px;
-      background:rgba(255,255,255,.12);
-      border:1px solid rgba(212,175,55,.35);
-      color:#fff;
-      font-size:.95rem;
-      margin-bottom:1.35rem;
-      backdrop-filter:blur(10px);
+    .hero-content { max-width:900px; position:relative; z-index:2; }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:.6rem;
+      padding:.55rem 1.3rem; border-radius:999px;
+      background:rgba(201,168,76,.12);
+      border:1px solid rgba(201,168,76,.4);
+      backdrop-filter:blur(12px);
+      margin-bottom:1.8rem;
+      font-family:'Cinzel', serif; font-size:.78rem; letter-spacing:.14em;
+      color:var(--gold-light);
     }
-    .live-dot{
-      width:10px;height:10px;border-radius:50%;
+    .live-dot {
+      width:9px; height:9px; border-radius:50%;
       background:#ff3b3b;
       box-shadow:0 0 0 0 rgba(255,59,59,.8);
-      animation:pulse 1.5s infinite;
+      animation:pulse 1.6s ease infinite;
     }
-    .hero h1{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(2.3rem,5vw,4rem);
-      font-weight:700;
-      margin-bottom:1rem;
-      text-shadow:2px 3px 12px rgba(0,0,0,.6);
+
+    .hero h1 {
+      font-family:'Cinzel', serif;
+      font-size:clamp(2.2rem,5.5vw,4.6rem);
+      font-weight:900; line-height:1.08;
+      letter-spacing:.04em;
+      background:linear-gradient(135deg, #fff 30%, var(--gold-light) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+      margin-bottom:1.1rem;
+      text-shadow:none;
+      animation:fadeUp .9s ease both;
     }
-    .subtitle{
-      font-size:clamp(1.05rem,2.2vw,1.55rem);
-      margin-bottom:1rem;
-      opacity:.96;
+    .hero-divider {
+      width:80px; height:2px;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin:1rem auto 1.4rem;
     }
-    .description{
-      font-size:1.08rem;
-      margin:0 auto 2rem;
-      opacity:.95;
-      line-height:1.85;
-      max-width:820px;
+    .hero-sub {
+      font-family:'Cormorant Garamond', serif; font-size:clamp(1.2rem,2.5vw,1.9rem);
+      font-style:italic; font-weight:300; color:rgba(255,255,255,.88);
+      margin-bottom:.9rem; letter-spacing:.03em;
+      animation:fadeUp .9s .15s ease both; opacity:0;
     }
-    .cta-buttons{
-      display:flex;
-      gap:1rem;
-      justify-content:center;
-      flex-wrap:wrap;
+    .hero-desc {
+      font-size:1.05rem; line-height:1.9; color:rgba(255,255,255,.82);
+      max-width:700px; margin:0 auto 2.5rem;
+      animation:fadeUp .9s .3s ease both; opacity:0;
     }
-    .btn{
-      padding:.9rem 1.7rem;
-      border:none;
-      border-radius:999px;
-      font-size:1rem;
-      font-weight:700;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      transition:.25s ease;
-      cursor:pointer;
-      text-transform:uppercase;
-      letter-spacing:.5px;
-      min-width:190px;
-      box-shadow:var(--shadow-sm);
+    .hero-btns {
+      display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
+      animation:fadeUp .9s .45s ease both; opacity:0;
     }
-    .btn:hover{
-      transform:translateY(-2px);
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.9rem 2rem; border-radius:999px;
+      font-family:'Cinzel', serif; font-size:.8rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      border:none; cursor:pointer; transition:.25s ease;
+      min-width:180px; box-shadow:var(--shadow-gold);
     }
-    .btn-primary{
-      background:var(--gradient-primary);
-      color:var(--deep-purple);
+    .btn:hover { transform:translateY(-3px); }
+    .btn-gold {
+      background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);
+      color:var(--purple);
     }
-    .btn-secondary{
+    .btn-outline {
       background:transparent;
-      color:#F9F6F0;
-      border:2px solid var(--royal-gold);
+      color:var(--gold-light);
+      border:1.5px solid var(--gold);
     }
-    .btn-dark{
-      background:var(--gradient-secondary);
-      color:#fff;
+    .btn-outline:hover { background:rgba(201,168,76,.12); }
+    .btn-dark {
+      background:rgba(18,10,30,.8);
+      color:var(--gold-light);
+      border:1.5px solid rgba(201,168,76,.3);
+      backdrop-filter:blur(10px);
+    }
+    .btn-dark:hover { background:rgba(18,10,30,.95); }
+
+    /* ─── AUDIO TOGGLE ─── */
+    .audio-btn {
+      position:fixed; bottom:1.4rem; right:1.4rem; z-index:999;
+      background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
+      border:none; border-radius:999px;
+      padding:.8rem 1.2rem;
+      font-family:'Cinzel', serif; font-size:.72rem; font-weight:700;
+      letter-spacing:.08em; color:var(--purple);
+      cursor:pointer; box-shadow:var(--shadow-deep);
+      transition:.2s ease;
+    }
+    .audio-btn:hover { transform:translateY(-2px); }
+
+    /* ─── SECTION BASE ─── */
+    .section { padding:6rem 0; }
+    .container { max-width:var(--max-w); margin:0 auto; padding:0 1.5rem; }
+
+    .section-label {
+      font-family:'Cinzel', serif; font-size:.72rem; font-weight:700;
+      letter-spacing:.22em; color:var(--gold);
+      text-transform:uppercase; text-align:center; margin-bottom:.9rem;
+    }
+    .section-title {
+      font-family:'Cinzel', serif;
+      font-size:clamp(1.8rem,4vw,3rem);
+      font-weight:700; text-align:center;
+      letter-spacing:.04em; line-height:1.15;
+      color:var(--purple); margin-bottom:.8rem;
+    }
+    .section-sub {
+      text-align:center; color:var(--muted);
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.25rem; font-style:italic;
+      max-width:700px; margin:0 auto 2.5rem;
+      line-height:1.7;
+    }
+    .gold-rule {
+      width:60px; height:2px; margin:.5rem auto 2.5rem;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
     }
 
-    .audio-control{
-      position:fixed;
-      bottom:1.2rem;
-      right:1.2rem;
-      z-index:1000;
-      background:var(--gradient-primary);
-      border:none;
-      border-radius:999px;
-      padding:.85rem 1.15rem;
-      color:#1A0F26;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow:var(--shadow-lg);
+    /* ─── LIVE SECTION ─── */
+    .live-section {
+      background:var(--purple);
+      position:relative; overflow:hidden;
     }
+    .live-section::before {
+      content:'';
+      position:absolute; top:-200px; left:-200px;
+      width:600px; height:600px; border-radius:50%;
+      background:radial-gradient(circle, rgba(201,168,76,.08) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .live-section::after {
+      content:'';
+      position:absolute; bottom:-200px; right:-100px;
+      width:500px; height:500px; border-radius:50%;
+      background:radial-gradient(circle, rgba(201,168,76,.06) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .live-section .section-title { color:var(--gold-light); }
+    .live-section .section-sub { color:rgba(248,243,234,.72); }
 
-    .main-content{
-      background:var(--cream);
-      position:relative;
-      z-index:10;
-      border-top-left-radius:24px;
-      border-top-right-radius:24px;
-      margin-top:-18px;
-      overflow:hidden;
-    }
-    .container{
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding:0 1.25rem;
-    }
-    .section{
-      padding:5rem 0;
-    }
-    .section-title{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(2rem,4vw,3rem);
-      text-align:center;
-      margin-bottom:1rem;
-      color:var(--deep-purple);
-    }
-    .section-subtitle{
-      max-width:760px;
-      margin:0 auto 2.2rem;
-      text-align:center;
-      color:var(--muted);
-      font-size:1.08rem;
-    }
-
-    .live-section{
-      background:#0f0a16;
-      color:#fff;
-    }
-    .live-wrapper{
+    .live-grid {
       display:grid;
-      grid-template-columns:1.4fr .9fr;
-      gap:2rem;
-      align-items:start;
+      grid-template-columns:1.55fr 1fr;
+      gap:2rem; align-items:start;
     }
-    .video-card,
-    .info-card,
-    .about-card,
-    .ministry-card,
-    .payment-method,
-    .contact-card{
-      background:var(--soft-white);
-      border-radius:var(--radius-xl);
-      box-shadow:var(--shadow-sm);
-    }
-    .video-card{
-      background:#141414;
+    .video-card {
+      border-radius:var(--radius);
       overflow:hidden;
-      border:1px solid rgba(255,255,255,.08);
+      border:1px solid rgba(201,168,76,.2);
+      box-shadow:0 30px 80px rgba(0,0,0,.5);
+      background:#0a0612;
     }
-    .video-embed{
-      position:relative;
-      width:100%;
-      aspect-ratio:16/9;
-      background:#000;
+    .video-embed {
+      position:relative; width:100%; aspect-ratio:16/9; background:#000;
     }
-    .video-embed iframe{
-      width:100%;
-      height:100%;
-      border:none;
+    .video-embed iframe { width:100%; height:100%; border:none; }
+    .video-card-footer {
+      padding:1.3rem 1.5rem;
+      border-top:1px solid rgba(201,168,76,.12);
     }
-    .video-meta{
-      padding:1.2rem 1.25rem 1.35rem;
-      color:#fff;
+    .video-card-footer h3 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.4rem; font-weight:600;
+      color:var(--gold-light); margin-bottom:.3rem;
     }
-    .video-meta h3{
-      font-family:'Playfair Display',serif;
-      color:var(--royal-gold);
-      font-size:1.6rem;
-      margin-bottom:.45rem;
-    }
-    .video-meta p{
-      color:rgba(255,255,255,.88);
-    }
+    .video-card-footer p { color:rgba(255,255,255,.7); font-size:.95rem; }
 
-    .info-card{
-      background:rgba(255,255,255,.06);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.08);
-      padding:1.5rem;
-      backdrop-filter:blur(12px);
+    .live-info {
+      display:flex; flex-direction:column; gap:1.2rem;
     }
-    .info-card h3{
-      font-family:'Playfair Display',serif;
-      color:var(--royal-gold);
-      margin-bottom:.85rem;
-      font-size:1.5rem;
+    .info-block {
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(201,168,76,.14);
+      border-radius:var(--radius);
+      padding:1.4rem;
+      backdrop-filter:blur(10px);
     }
-    .info-list{
+    .info-block h4 {
+      font-family:'Cinzel', serif; font-size:.78rem; font-weight:700;
+      letter-spacing:.14em; color:var(--gold); margin-bottom:.8rem;
+    }
+    .service-rows { display:flex; flex-direction:column; gap:.6rem; }
+    .service-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.6rem .8rem; border-radius:8px;
+      background:rgba(255,255,255,.04);
+    }
+    .service-row span { color:rgba(255,255,255,.82); font-size:.94rem; }
+    .service-row strong { color:var(--gold-light); font-size:.94rem; }
+    .live-btns { display:flex; flex-direction:column; gap:.8rem; }
+
+    /* ─── ABOUT SECTION ─── */
+    .about-section { background:var(--cream); }
+
+    /* FOUNDERS — the hero piece of this section */
+    .founders-feature {
       display:grid;
-      gap:1rem;
-      margin:1rem 0 1.5rem;
+      grid-template-columns:1fr 1.08fr;
+      gap:3.5rem;
+      align-items:center;
+      margin-bottom:4rem;
     }
-    .info-item{
-      padding:1rem;
-      border-radius:12px;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.06);
+    .founders-image-side { position:relative; }
+    .founders-frame {
+      position:relative;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 32px 80px rgba(28,16,40,.30), 0 0 0 1px rgba(201,168,76,.22);
     }
-    .info-item strong{
+    .founders-frame img {
+      width:100%; height:540px;
+      object-fit:cover; object-position:center top;
       display:block;
-      color:#fff;
-      margin-bottom:.2rem;
+      transition:transform .5s ease;
     }
-    .small-note{
-      font-size:.95rem;
-      color:rgba(255,255,255,.82);
+    .founders-frame:hover img { transform:scale(1.03); }
+    /* Gold corner accents */
+    .founders-frame::before,
+    .founders-frame::after {
+      content:'';
+      position:absolute; z-index:2;
+      width:44px; height:44px;
+      border-color:var(--gold); border-style:solid;
+    }
+    .founders-frame::before { top:16px; left:16px; border-width:2px 0 0 2px; }
+    .founders-frame::after  { bottom:16px; right:16px; border-width:0 2px 2px 0; }
+
+    /* overlay gradient at bottom */
+    .founders-frame-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(28,16,40,.62) 0%, transparent 48%);
+      z-index:1;
+    }
+    .founders-caption-overlay {
+      position:absolute; bottom:0; left:0; right:0; z-index:3;
+      padding:1.6rem 1.8rem;
+    }
+    .founders-caption-overlay h4 {
+      font-family:'Cinzel', serif; font-size:1.05rem; font-weight:700;
+      color:var(--gold-light); letter-spacing:.06em; margin-bottom:.25rem;
+    }
+    .founders-caption-overlay p {
+      font-family:'Cormorant Garamond', serif; font-size:1rem;
+      font-style:italic; color:rgba(255,255,255,.8);
     }
 
-    .about-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:1.5rem;
-      margin-top:2rem;
+    /* decorative badge floating top-right */
+    .founder-badge {
+      position:absolute; top:-18px; right:-18px; z-index:5;
+      width:84px; height:84px; border-radius:50%;
+      background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      box-shadow:0 10px 30px rgba(201,168,76,.4);
+      border:3px solid var(--cream);
     }
-    .about-card{
+    .founder-badge span:first-child {
+      font-family:'Cinzel', serif; font-size:.65rem; font-weight:700;
+      color:var(--purple); letter-spacing:.08em; line-height:1.2;
+      text-align:center;
+    }
+    .founder-badge span:last-child {
+      font-family:'Cinzel', serif; font-size:.55rem; font-weight:600;
+      color:rgba(28,16,40,.7); letter-spacing:.06em;
+    }
+
+    .founders-text-side {}
+    .founders-text-side .section-label { text-align:left; }
+    .founders-text-side .section-title { text-align:left; }
+    .founders-text-side .gold-rule { margin-left:0; }
+
+    .founders-story {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.22rem; line-height:1.85; color:var(--charcoal);
+      margin-bottom:1.4rem;
+    }
+    .founders-story strong { color:var(--purple); font-weight:600; }
+
+    .founders-stat-row {
+      display:flex; gap:1.5rem; margin-top:1.8rem;
+    }
+    .stat-chip {
+      flex:1; padding:1.2rem 1rem;
+      border-radius:14px;
+      background:var(--purple);
+      text-align:center;
+      box-shadow:0 8px 30px rgba(28,16,40,.18);
+    }
+    .stat-chip .num {
+      font-family:'Cinzel', serif; font-size:2rem; font-weight:700;
+      color:var(--gold-light); display:block; line-height:1;
+    }
+    .stat-chip .lbl {
+      font-size:.78rem; color:rgba(255,255,255,.65);
+      letter-spacing:.08em; margin-top:.35rem; display:block;
+    }
+
+    /* Mission & Vision cards */
+    .mv-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;
+    }
+    .mv-card {
+      border-radius:var(--radius);
       padding:2rem;
-      border:1px solid rgba(212,175,55,.18);
+      position:relative; overflow:hidden;
     }
-    .about-card h3{
-      font-family:'Playfair Display',serif;
-      color:var(--deep-purple);
-      font-size:1.45rem;
-      margin-bottom:.7rem;
+    .mv-card.mission { background:var(--purple); color:var(--white); }
+    .mv-card.vision  { background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%); color:var(--purple); }
+    .mv-card::before {
+      content:''; position:absolute; top:-40px; right:-40px;
+      width:150px; height:150px; border-radius:50%;
+      background:rgba(255,255,255,.05); pointer-events:none;
     }
+    .mv-card h3 {
+      font-family:'Cinzel', serif; font-size:1rem; font-weight:700;
+      letter-spacing:.12em; margin-bottom:.8rem;
+    }
+    .mv-card.mission h3 { color:var(--gold-light); }
+    .mv-card.vision  h3 { color:var(--purple); }
+    .mv-card p {
+      font-family:'Cormorant Garamond', serif; font-size:1.15rem;
+      line-height:1.75;
+    }
+    .mv-card.mission p { color:rgba(248,243,234,.85); }
+    .mv-card.vision  p { color:rgba(28,16,40,.85); }
 
-    .about-row{
+    /* ─── MINISTRIES ─── */
+    .min-section { background:var(--purple); position:relative; overflow:hidden; }
+    .min-section::before {
+      content:'';
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 60% 50% at 10% 50%, rgba(201,168,76,.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 90% 50%, rgba(201,168,76,.05) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .min-section .section-title  { color:var(--gold-light); }
+    .min-section .section-sub    { color:rgba(248,243,234,.68); }
+
+    .min-grid {
       display:grid;
-      grid-template-columns:1.2fr 1fr;
-      gap:2rem;
-      align-items:center;
-    }
-
-    .founder-image-box{
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 18px 40px rgba(0,0,0,.2);
-      border:3px solid rgba(212,175,55,.25);
-      background:#fff;
-    }
-
-    .founder-image-box img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .founder-caption{
-      text-align:center;
-      margin-top:.6rem;
-      font-weight:600;
-      color:var(--deep-purple);
-      line-height:1.6;
-    }
-
-    .ministries-section{
-      background:var(--gradient-secondary);
-      color:#F9F6F0;
-    }
-    .ministries-section .section-title{color:var(--royal-gold)}
-    .ministries-section .section-subtitle{color:rgba(255,255,255,.84)}
-    .ministries-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
       gap:1.3rem;
-      margin-top:2rem;
     }
-    .ministry-card{
-      background:rgba(255,255,255,.07);
-      color:#fff;
-      padding:1.6rem;
-      border:1px solid rgba(255,255,255,.11);
+    .min-card {
+      border-radius:var(--radius);
+      padding:2rem 1.8rem;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(201,168,76,.13);
       backdrop-filter:blur(8px);
+      transition:transform .25s, border-color .25s, background .25s;
+      position:relative; overflow:hidden;
     }
-    .ministry-card h3{
-      font-family:'Playfair Display',serif;
-      color:var(--royal-gold);
-      margin-bottom:.35rem;
-      font-size:1.35rem;
+    .min-card::after {
+      content:'';
+      position:absolute; bottom:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform:scaleX(0); transition:transform .35s;
     }
-    .ministry-time{
-      font-weight:700;
-      margin-bottom:.5rem;
-      color:#fff;
-    }
+    .min-card:hover { transform:translateY(-5px); background:rgba(255,255,255,.07); border-color:rgba(201,168,76,.3); }
+    .min-card:hover::after { transform:scaleX(1); }
 
-    .donation-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:1.4rem;
-      align-items:start;
-      margin-top:2rem;
+    .min-icon {
+      width:48px; height:48px; border-radius:12px;
+      background:linear-gradient(135deg,rgba(201,168,76,.18) 0%,rgba(201,168,76,.08) 100%);
+      border:1px solid rgba(201,168,76,.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem; margin-bottom:1.1rem;
     }
-    .donation-methods{
-      display:grid;
+    .min-card h3 {
+      font-family:'Cinzel', serif; font-size:.95rem; font-weight:700;
+      color:var(--gold-light); letter-spacing:.06em; margin-bottom:.4rem;
+    }
+    .min-time {
+      font-family:'Cormorant Garamond', serif; font-size:.98rem;
+      font-style:italic; color:rgba(201,168,76,.7); margin-bottom:.7rem;
+    }
+    .min-card p { color:rgba(255,255,255,.72); font-size:.95rem; line-height:1.7; }
+
+    /* ─── GIVING ─── */
+    .give-section { background:var(--cream-warm); }
+    .give-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:1.3rem; margin-top:2rem;
+    }
+    .give-card {
+      background:var(--white);
+      border-radius:var(--radius);
+      padding:1.8rem;
+      border:1px solid rgba(201,168,76,.18);
+      box-shadow:0 8px 32px rgba(28,16,40,.06);
+      display:flex; align-items:center; justify-content:space-between;
       gap:1rem;
+      transition:transform .25s, box-shadow .25s;
     }
-    .payment-method{
-      padding:1.35rem;
-      border:2px solid rgba(212,175,55,.23);
-      display:flex;
-      gap:1rem;
-      justify-content:space-between;
-      align-items:center;
+    .give-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-gold); }
+    .give-card-left {}
+    .give-icon-wrap {
+      width:46px; height:46px; border-radius:12px;
+      background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.3rem; margin-bottom:.9rem;
+      flex-shrink:0;
     }
-    .payment-info h3{
-      font-family:'Playfair Display',serif;
-      font-size:1.2rem;
-      color:var(--deep-purple);
-      margin-bottom:.2rem;
+    .give-card h3 {
+      font-family:'Cinzel', serif; font-size:.88rem; font-weight:700;
+      color:var(--purple); letter-spacing:.08em; margin-bottom:.3rem;
     }
-    .payment-details{color:#555}
+    .give-card p { color:var(--muted); font-size:.9rem; }
+    .give-card .btn { min-width:0; padding:.65rem 1.3rem; font-size:.75rem; flex-shrink:0; }
+    .give-full { flex-direction:column; align-items:flex-start; gap:.6rem; }
+    .give-full .btn { align-self:flex-start; }
 
-    .contact-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
-      gap:1.5rem;
-      margin-top:2rem;
+    /* ─── CONTACT ─── */
+    .contact-section { background:var(--purple); }
+    .contact-section .section-title { color:var(--gold-light); }
+    .contact-section .section-sub { color:rgba(248,243,234,.7); }
+    .contact-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+      gap:1.3rem; margin-top:2rem;
     }
-    .contact-card{
-      padding:1.7rem;
-      border:1px solid rgba(212,175,55,.16);
+    .contact-card {
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(201,168,76,.14);
+      border-radius:var(--radius);
+      padding:2rem;
+      backdrop-filter:blur(10px);
     }
-    .contact-card h3{
-      font-family:'Playfair Display',serif;
-      color:var(--deep-purple);
-      margin-bottom:.7rem;
+    .contact-card-icon {
+      font-size:1.6rem; margin-bottom:1rem;
+    }
+    .contact-card h3 {
+      font-family:'Cinzel', serif; font-size:.82rem; font-weight:700;
+      color:var(--gold); letter-spacing:.12em; margin-bottom:.9rem;
+    }
+    .contact-card p {
+      color:rgba(248,243,234,.8); font-size:.97rem; line-height:1.8;
+    }
+    .contact-card a {
+      color:var(--gold-light);
+      text-decoration:underline;
+      text-underline-offset:3px;
     }
 
-    .footer{
-      background:var(--deep-purple);
-      color:#F9F6F0;
-      padding:3rem 0 1.5rem;
+    /* ─── MAP EMBED ─── */
+    .map-wrap {
+      border-radius:var(--radius);
+      overflow:hidden;
+      margin-top:2.5rem;
+      border:1px solid rgba(201,168,76,.2);
+      box-shadow:0 20px 60px rgba(0,0,0,.3);
+      height:340px;
+    }
+    .map-wrap iframe { width:100%; height:100%; border:none; filter:grayscale(.15) contrast(1.05); }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background:linear-gradient(135deg,#0e0819 0%,#190e28 100%);
+      color:rgba(248,243,234,.7);
+      padding:4rem 0 2rem;
       text-align:center;
+      border-top:1px solid rgba(201,168,76,.15);
     }
-    .footer h3{
-      font-family:'Playfair Display',serif;
-      font-size:1.7rem;
-      color:var(--royal-gold);
-      margin-bottom:1rem;
+    .footer-logo-img {
+      height:70px; margin:0 auto 1rem;
+      animation:spin 22s linear infinite;
+      filter:drop-shadow(0 0 12px rgba(201,168,76,.35));
     }
-    .footer p{margin-bottom:.5rem}
-    .copyright{
-      margin-top:1.5rem;
-      opacity:.9;
-      font-size:.95rem;
+    .footer h3 {
+      font-family:'Cinzel', serif; font-size:1.5rem; font-weight:700;
+      color:var(--gold-light); letter-spacing:.06em; margin-bottom:.5rem;
+    }
+    .footer-tagline {
+      font-family:'Cormorant Garamond', serif; font-size:1.1rem;
+      font-style:italic; color:rgba(248,243,234,.55); margin-bottom:1rem;
+    }
+    .footer p { font-size:.92rem; line-height:1.8; }
+    .footer-divider {
+      width:60px; height:1px; margin:1.5rem auto;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .copyright { font-size:.83rem; color:rgba(248,243,234,.4); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes pulse {
+      0%   {box-shadow:0 0 0 0 rgba(255,59,59,.8)}
+      70%  {box-shadow:0 0 0 12px rgba(255,59,59,0)}
+      100% {box-shadow:0 0 0 0 rgba(255,59,59,0)}
+    }
+    @keyframes fadeUp {
+      from{opacity:0; transform:translateY(24px)}
+      to  {opacity:1; transform:translateY(0)}
     }
 
-    @media (max-width: 980px){
-      .live-wrapper{
-        grid-template-columns:1fr;
-      }
-      .nav-container{
-        flex-direction:column;
-        align-items:center;
-      }
-      .nav-menu{
-        justify-content:center;
-        gap:1rem;
-      }
+    /* scroll reveal */
+    .reveal {
+      opacity:0; transform:translateY(32px);
+      transition:opacity .7s ease, transform .7s ease;
     }
+    .reveal.visible { opacity:1; transform:translateY(0); }
 
-    @media (max-width: 900px){
-      .about-row{
-        grid-template-columns:1fr;
-      }
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:1024px){
+      .live-grid { grid-template-columns:1fr; }
+      .founders-feature { grid-template-columns:1fr; gap:2.5rem; }
+      .founders-frame img { height:420px; }
     }
-
-    @media (max-width: 768px){
-      .hero{
-        padding-top:150px;
-      }
-      .btn{
-        width:100%;
-        max-width:320px;
-      }
-      .payment-method{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .audio-control{
-        bottom:1rem;
-        right:1rem;
-        font-size:.92rem;
-      }
+    @media(max-width:768px){
+      .nav-inner { flex-direction:column; align-items:center; }
+      .nav-links { justify-content:center; gap:1rem; }
+      .logo-text { display:none; }
+      .hero { padding-top:170px; }
+      .hero-btns .btn { width:100%; max-width:300px; }
+      .mv-grid { grid-template-columns:1fr; }
+      .founders-stat-row { gap:1rem; }
+      .stat-chip .num { font-size:1.5rem; }
+      .founders-feature { gap:2rem; }
+      .founders-frame img { height:360px; }
+      .founder-badge { width:68px; height:68px; top:-12px; right:-12px; }
     }
-
-    @media (prefers-reduced-motion: reduce){
-      *{scroll-behavior:auto !important}
-      .logo-img{animation:none !important}
-      .live-dot{animation:none !important}
-      .btn:hover{transform:none}
-    }
-
-    @keyframes spin360{
-      from{transform:rotate(0deg)}
-      to{transform:rotate(360deg)}
-    }
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(255,59,59,.8)}
-      70%{box-shadow:0 0 0 12px rgba(255,59,59,0)}
-      100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}
+    @media(prefers-reduced-motion:reduce){
+      *, .logo-img, .footer-logo-img { animation:none !important; }
+      .btn:hover, .min-card:hover, .give-card:hover, .founders-frame:hover img { transform:none !important; }
     }
   </style>
 </head>
-
 <body>
 
-  <div class="video-background">
+  <!-- BG VIDEO -->
+  <div class="video-bg">
     <video autoplay muted loop id="bgVideo" playsinline>
       <source src="videoplayback.mp4" type="video/mp4">
     </video>
   </div>
   <div class="video-overlay"></div>
 
-  <header class="header">
-    <nav class="nav-container">
-      <a href="#home" class="logo-link" aria-label="Christ the King Christian Center Home">
-        <img src="Logo.png" alt="Christ the King Christian Center logo" class="logo-img" />
+  <!-- NAV -->
+  <header class="nav">
+    <nav class="nav-inner">
+      <a href="#home" class="logo-wrap" aria-label="Christ the King Christian Center">
+        <img src="Logo.png" alt="CKCC Logo" class="logo-img" />
+        <div class="logo-text">
+          <strong>Christ the King</strong>
+          <span>Christian Center</span>
+        </div>
       </a>
-
-      <ul class="nav-menu">
+      <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#live">Live</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#ministries">Ministries</a></li>
-        <li><a href="#donation">Give</a></li>
+        <li><a href="#give">Give</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="#live" class="nav-cta">Watch Live</a></li>
       </ul>
     </nav>
   </header>
 
+  <!-- HERO -->
   <section id="home" class="hero">
     <div class="hero-content">
-      <div class="live-pill">
+      <div class="hero-badge">
         <span class="live-dot"></span>
-        <span>Join us in worship online and in person</span>
+        Worship Online & In Person · Baton Rouge, LA
       </div>
-
-      <h1>Christ the King Christian Center</h1>
-      <p class="subtitle">An International Christian Worship Church</p>
-      <p class="description">
-        People from different parts of the world come together to worship and glorify God.
-        Experience dynamic praise, fervent prayer, and life-changing truth from God’s Word in a loving church family.
+      <h1>Christ the King<br>Christian Center</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">An International Christian Worship Church</p>
+      <p class="hero-desc">
+        People from every nation come together to worship and glorify God.
+        Experience dynamic praise, fervent prayer, and life-changing truth
+        from God's Word within a vibrant, loving church family.
       </p>
-
-      <div class="cta-buttons">
-        <a href="#live" class="btn btn-primary">Watch Live Service</a>
-        <a href="#ministries" class="btn btn-secondary">Explore Ministries</a>
-        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-dark" target="_blank" rel="noopener">
-          Visit YouTube Channel
-        </a>
+      <div class="hero-btns">
+        <a href="#live"       class="btn btn-gold">▶ Watch Live Service</a>
+        <a href="#ministries" class="btn btn-outline">Explore Ministries</a>
+        <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg"
+           class="btn btn-dark" target="_blank" rel="noopener">YouTube Channel</a>
       </div>
     </div>
   </section>
 
-  <button class="audio-control" id="audioToggle">🔊 Enable Audio</button>
+  <button class="audio-btn" id="audioToggle">🔊 Enable Audio</button>
 
-  <main class="main-content">
+  <!-- LIVE -->
+  <section id="live" class="section live-section">
+    <div class="container">
+      <p class="section-label">Broadcasting Live</p>
+      <h2 class="section-title">Sunday Worship Service</h2>
+      <div class="gold-rule" style="background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
+      <p class="section-sub">Watch with us live right here or join us directly on YouTube — every Sunday, 10:00 AM.</p>
 
-    <section id="live" class="section live-section">
-      <div class="container">
-        <h2 class="section-title" style="color:#D4AF37;">Sunday Live Service</h2>
-        <p class="section-subtitle" style="color:rgba(255,255,255,.85);">
-          Worship with us live online. You can watch right here in the app or open the service directly on YouTube.
-        </p>
+      <div class="live-grid reveal">
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/99IzQ8F0T-M"
+              title="Christ the King Christian Center Sunday Live Service"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-card-footer">
+            <h3>Watch Live on Our Website</h3>
+            <p>Join Sunday worship directly from Christ the King Christian Center, Baton Rouge.</p>
+          </div>
+        </div>
 
-        <div class="live-wrapper">
-          <div class="video-card">
-            <div class="video-embed">
-              <iframe
-                src="https://www.youtube.com/embed/99IzQ8F0T-M"
-                title="Christ the King Christian Center Sunday Live Service"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="video-meta">
-              <h3>Watch Live on the Website</h3>
-              <p>
-                Join Sunday worship service live from Christ the King Christian Center.
-              </p>
+        <div class="live-info">
+          <div class="info-block">
+            <h4>Service Schedule</h4>
+            <div class="service-rows">
+              <div class="service-row"><span>Sunday Worship</span><strong>10:00 AM</strong></div>
+              <div class="service-row"><span>Bible Study &amp; Prayer</span><strong>Wed 7:00 PM</strong></div>
+              <div class="service-row"><span>Choir Rehearsal</span><strong>Fri 7:00 PM</strong></div>
+              <div class="service-row"><span>Dial-in Prayer</span><strong>Mon 7:00 PM</strong></div>
             </div>
           </div>
 
-          <div class="info-card">
-            <h3>Service Information</h3>
-
-            <div class="info-list">
-              <div class="info-item">
-                <strong>Sunday Worship Service</strong>
-                10:00 AM
-              </div>
-
-              <div class="info-item">
-                <strong>Watch on YouTube</strong>
-                Click below to open the service directly in YouTube.
-              </div>
-
-              <div class="info-item">
-                <strong>Church Channel</strong>
-                Subscribe and stay connected for live streams, sermons, and updates.
-              </div>
-            </div>
-
-            <div class="cta-buttons" style="justify-content:flex-start;">
-              <a href="https://www.youtube.com/live/99IzQ8F0T-M?si=UGL_moSnJCvgmtZa" class="btn btn-primary" target="_blank" rel="noopener">
-                ▶ Watch on YouTube
+          <div class="info-block">
+            <h4>Watch on YouTube</h4>
+            <p style="color:rgba(255,255,255,.72);font-size:.94rem;margin-bottom:1.1rem;">
+              Subscribe to stay connected — live streams, sermons, and weekly updates.
+            </p>
+            <div class="live-btns">
+              <a href="https://www.youtube.com/live/99IzQ8F0T-M?si=UGL_moSnJCvgmtZa"
+                 class="btn btn-gold" target="_blank" rel="noopener" style="justify-content:center;">
+                ▶ Open in YouTube
               </a>
-              <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg" class="btn btn-secondary" target="_blank" rel="noopener">
-                Subscribe
+              <a href="https://www.youtube.com/channel/UCwElY2wM_GpQDO_RjjR9-eg"
+                 class="btn btn-outline" target="_blank" rel="noopener" style="justify-content:center;">
+                Subscribe to Channel
               </a>
             </div>
-
-            <p class="small-note" style="margin-top:1rem;"></p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title">About Our Church</h2>
-        <p class="section-subtitle">
-          A welcoming church family committed to worship, prayer, sound teaching, and raising disciples for the Kingdom of God.
-        </p>
+  <!-- ABOUT -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">About Our Church</h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub">A welcoming family committed to worship, prayer, sound teaching,<br>and raising disciples for the Kingdom of God.</p>
 
-        <div class="about-grid">
-          <div class="about-card">
-            <div class="about-row">
-              <div>
-                <h3>Background</h3>
-                <p>
-                  Christ the King Christian Center began on January 03, 1999 with 3 families as God laid the vision on
-                  <strong>Apostle Chibuike Azuoru</strong> and his wife, <strong>Pastor Mary Azuoru</strong>.
-                  Following Apostle Chibuike’s ordination by Pastor J.D. Brown of Faith Chapel Church of God,
-                  they established a worship fellowship where believers could grow, serve, and develop their spiritual gifts.
-                  Today, what began with only 3 families has grown into an International Christian Worship Church drawing
-                  people from all walks of life and nations.
-                </p>
-              </div>
+      <!-- FOUNDERS FEATURE — large, balanced, perfect -->
+      <div class="founders-feature reveal">
 
-              <div>
-                <div class="founder-image-box">
-                  <img src="Leaders.jpeg" alt="Apostle Chibuike Azuoru and Pastor Mary Azuoru">
-                </div>
-                <div class="founder-caption">
-                  Apostle Chibuike Azuoru & Pastor Mary Azuoru<br>
-                  Founders
-                </div>
-              </div>
+        <!-- TEXT SIDE (left) -->
+        <div class="founders-text-side">
+          <p class="section-label" style="text-align:left;">Founders</p>
+          <h2 class="section-title" style="text-align:left;font-size:clamp(1.6rem,3.5vw,2.5rem);">
+            Apostle &amp; Pastor Azuoru
+          </h2>
+          <div class="gold-rule" style="margin-left:0;"></div>
+
+          <p class="founders-story">
+            Christ the King Christian Center was founded on <strong>January 3, 1999</strong>,
+            with just three families when God laid the vision on
+            <strong>Apostle Chibuike Azuoru</strong> and his wife, <strong>Pastor Mary Azuoru</strong>.
+          </p>
+          <p class="founders-story">
+            Following Apostle Chibuike's ordination by Pastor J.D. Brown of Faith Chapel Church of God,
+            they established a worship fellowship where believers could grow, serve, and develop their
+            spiritual gifts. What began in faith with three families has grown into an
+            <strong>International Christian Worship Church</strong> drawing people from all walks of life and every nation.
+          </p>
+
+          <div class="founders-stat-row">
+            <div class="stat-chip">
+              <span class="num">1999</span>
+              <span class="lbl">FOUNDED</span>
             </div>
-          </div>
-
-          <div class="about-card">
-            <h3>Our Mission</h3>
-            <p>
-              To glorify Jesus Christ through worship, prayer, the Word, and loving community—equipping believers
-              to be overcomers who impact others for the Kingdom of God.
-            </p>
-          </div>
-
-          <div class="about-card">
-            <h3>Our Vision</h3>
-            <p>
-              A vibrant, multi-ethnic, multi-generational church where the truth sets people free,
-              lives are transformed, and the nations rejoice in Christ the King.
-            </p>
+            <div class="stat-chip">
+              <span class="num">25+</span>
+              <span class="lbl">YEARS OF MINISTRY</span>
+            </div>
+            <div class="stat-chip">
+              <span class="num">🌍</span>
+              <span class="lbl">INTERNATIONAL</span>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section id="ministries" class="section ministries-section">
-      <div class="container">
-        <h2 class="section-title">Our Ministries</h2>
-        <p class="section-subtitle">
-          There is a place for everyone to grow, serve, and encounter God.
-        </p>
-
-        <div class="ministries-grid">
-          <div class="ministry-card">
-            <h3>Sunday Worship</h3>
-            <p class="ministry-time">Sunday • 10:00 AM</p>
-            <p>
-              Experience dynamic worship, heartfelt prayer, and transformational preaching from the Word of God.
-            </p>
+        <!-- IMAGE SIDE (right) — large, perfectly framed -->
+        <div class="founders-image-side">
+          <div class="founders-frame">
+            <img src="Leaders.jpeg"
+                 alt="Apostle Chibuike Azuoru and Pastor Mary Azuoru — Founders of Christ the King Christian Center">
+            <div class="founders-frame-overlay"></div>
+            <div class="founders-caption-overlay">
+              <h4>Apostle Chibuike Azuoru &amp; Pastor Mary Azuoru</h4>
+              <p>Founders &amp; Senior Pastors · Christ the King Christian Center</p>
+            </div>
           </div>
-
-          <div class="ministry-card">
-            <h3>Bible Study & Prayer</h3>
-            <p class="ministry-time">Wednesday • 7:00 PM</p>
-            <p>
-              Grow deeper in Scripture, build your faith, and stand together in prayer for families, church, and community.
-            </p>
-          </div>
-
-          <div class="ministry-card">
-            <h3>Choir Ministry</h3>
-            <p class="ministry-time">Friday • 7:00 PM</p>
-            <p>
-              Join the praise team as they prepare to minister through worship and lead the congregation into God’s presence.
-            </p>
-          </div>
-
-          <div class="ministry-card">
-            <h3>Media Team</h3>
-            <p class="ministry-time">All Week</p>
-            <p>
-              Serving behind the scenes with excellence, the Media Team helps share worship, messages, and church moments with clarity, creativity, and impact.
-            </p>
-          </div>
-
-          <div class="ministry-card">
-            <h3>Children Ministry</h3>
-            <p class="ministry-time">All Week</p>
-            <p>
-              Nurturing young hearts in the love of Christ through biblical teaching, joyful learning, prayer, and a safe environment where children can grow in faith.
-            </p>
+          <!-- floating badge -->
+          <div class="founder-badge">
+            <span>EST.</span>
+            <span>1999</span>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section id="donation" class="section donation-section">
-      <div class="container">
-        <h2 class="section-title">Partnership Through Giving</h2>
-        <p class="section-subtitle">
-          We give as an act of worship, gratitude, and obedience to God.
-        </p>
+      </div><!-- /founders-feature -->
 
-        <div class="donation-grid">
-          <div class="donation-methods">
-
-            <div class="payment-method">
-              <div class="payment-info">
-                <h3>Online Giving</h3>
-                <p class="payment-details">SimpleChurch Giving (secure)</p>
-              </div>
-              <a class="btn btn-primary" href="https://www.simplechurchgiving.net/app/giving/chri4407263" target="_blank" rel="noopener">
-                Donate Now
-              </a>
-            </div>
-
-            <div class="payment-method">
-              <div class="payment-info">
-                <h3>Cash App</h3>
-                <p class="payment-details">$Christthekingchrisu</p>
-              </div>
-              <a class="btn btn-secondary" style="color:var(--deep-purple); border-color:var(--deep-purple);" href="https://cash.app/$Christthekingchrisu" target="_blank" rel="noopener">
-                Open
-              </a>
-            </div>
-
-            <div class="payment-method">
-              <div class="payment-info">
-                <h3>Zelle</h3>
-                <p class="payment-details">CKCCBR@gmail.com</p>
-              </div>
-            </div>
-
-            <div class="payment-method">
-              <div class="payment-info">
-                <h3>Mail a Check</h3>
-                <p class="payment-details">
-                  Christ the King Christian Center<br>
-                  4407 N. Sherwood Forest Dr<br>
-                  Baton Rouge, LA 70814
-                </p>
-              </div>
-            </div>
-
-          </div>
+      <!-- MISSION & VISION -->
+      <div class="mv-grid reveal">
+        <div class="mv-card mission">
+          <h3>Our Mission</h3>
+          <p>
+            To glorify Jesus Christ through worship, prayer, the Word, and loving community —
+            equipping believers to be overcomers who impact others for the Kingdom of God.
+          </p>
+        </div>
+        <div class="mv-card vision">
+          <h3>Our Vision</h3>
+          <p>
+            A vibrant, multi-ethnic, multi-generational church where the truth sets people free,
+            lives are transformed, and the nations rejoice in Christ the King.
+          </p>
         </div>
       </div>
-    </section>
 
-    <section id="contact" class="section">
-      <div class="container">
-        <h2 class="section-title">Contact & Location</h2>
-        <p class="section-subtitle">
-          We would love to worship with you and welcome you to our church family.
-        </p>
+    </div>
+  </section>
 
-        <div class="contact-grid">
+  <!-- MINISTRIES -->
+  <section id="ministries" class="section min-section">
+    <div class="container">
+      <p class="section-label" style="color:rgba(201,168,76,.7);">Get Involved</p>
+      <h2 class="section-title">Our Ministries</h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub">There is a place for everyone to grow, serve, and encounter God.</p>
 
-          <div class="contact-card">
-            <h3>Church Information</h3>
-            <p><strong>Christ the King Christian Center</strong><br>An International Christian Worship Church</p>
-            <p style="margin-top:.7rem;"><strong>Phone:</strong> (225) 272-7279</p>
-            <p><strong>Email:</strong> CKCCBR@gmail.com</p>
-          </div>
-
-          <div class="contact-card">
-            <h3>Location</h3>
-            <p>
-              <strong>Address:</strong><br>
-              4407 N. Sherwood Forest Drive<br>
-              Baton Rouge, Louisiana 70814
-            </p>
-          </div>
-
-          <div class="contact-card">
-            <h3>Service Times</h3>
-            <p><strong>Sunday Worship:</strong> 10:00 AM</p>
-            <p><strong>Bible Study & Prayer:</strong> Wednesday 7:00 PM</p>
-            <p><strong>Choir Rehearsal:</strong> Friday 7:00 PM</p>
-            <p><strong>Weekly Dial-in Prayer:</strong> Monday 7:00 PM</p>
-            <p><strong>Dial-in Number:</strong> 267-807-9605</p>
-            <p><strong>Access Code:</strong> 801389#</p>
-          </div>
-
+      <div class="min-grid reveal">
+        <div class="min-card">
+          <div class="min-icon">🙌</div>
+          <h3>Sunday Worship</h3>
+          <p class="min-time">Sunday · 10:00 AM</p>
+          <p>Dynamic worship, heartfelt prayer, and transformational preaching from the Word of God.</p>
+        </div>
+        <div class="min-card">
+          <div class="min-icon">📖</div>
+          <h3>Bible Study &amp; Prayer</h3>
+          <p class="min-time">Wednesday · 7:00 PM</p>
+          <p>Grow deeper in Scripture, build your faith, and stand together in prayer for families and community.</p>
+        </div>
+        <div class="min-card">
+          <div class="min-icon">🎶</div>
+          <h3>Choir Ministry</h3>
+          <p class="min-time">Friday · 7:00 PM</p>
+          <p>Praise team preparing to minister through worship and lead the congregation into God's presence.</p>
+        </div>
+        <div class="min-card">
+          <div class="min-icon">🎬</div>
+          <h3>Media Team</h3>
+          <p class="min-time">All Week</p>
+          <p>Serving behind the scenes with excellence — sharing worship, messages, and church moments with clarity and creativity.</p>
+        </div>
+        <div class="min-card">
+          <div class="min-icon">🌱</div>
+          <h3>Children Ministry</h3>
+          <p class="min-time">All Week</p>
+          <p>Nurturing young hearts in the love of Christ through biblical teaching, joyful learning, and a safe environment.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- GIVE -->
+  <section id="give" class="section give-section">
+    <div class="container">
+      <p class="section-label">Partnership Through Giving</p>
+      <h2 class="section-title">Give to the Kingdom</h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub">We give as an act of worship, gratitude, and obedience to God.</p>
 
+      <div class="give-grid reveal">
+
+        <div class="give-card give-full">
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div class="give-icon-wrap">💳</div>
+            <div>
+              <h3>Online Giving</h3>
+              <p>SimpleChurch Giving — secure &amp; easy</p>
+            </div>
+          </div>
+          <a class="btn btn-gold"
+             href="https://www.simplechurchgiving.net/app/giving/chri4407263"
+             target="_blank" rel="noopener">
+            Donate Now
+          </a>
+        </div>
+
+        <div class="give-card">
+          <div class="give-card-left">
+            <div class="give-icon-wrap" style="margin-bottom:.5rem;">💵</div>
+            <h3>Cash App</h3>
+            <p>$Christthekingchrisu</p>
+          </div>
+          <a class="btn btn-gold"
+             href="https://cash.app/$Christthekingchrisu"
+             target="_blank" rel="noopener">
+            Open
+          </a>
+        </div>
+
+        <div class="give-card">
+          <div class="give-card-left">
+            <div class="give-icon-wrap" style="margin-bottom:.5rem;">⚡</div>
+            <h3>Zelle</h3>
+            <p>CKCCBR@gmail.com</p>
+          </div>
+        </div>
+
+        <div class="give-card">
+          <div class="give-card-left">
+            <div class="give-icon-wrap" style="margin-bottom:.5rem;">✉️</div>
+            <h3>Mail a Check</h3>
+            <p>4407 N. Sherwood Forest Dr<br>Baton Rouge, LA 70814</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <p class="section-label" style="color:rgba(201,168,76,.7);">Connect With Us</p>
+      <h2 class="section-title">Contact &amp; Location</h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub">We would love to worship with you and welcome you to our church family.</p>
+
+      <div class="contact-grid reveal">
+        <div class="contact-card">
+          <div class="contact-card-icon">⛪</div>
+          <h3>Church Information</h3>
+          <p>
+            <strong style="color:var(--gold-light);">Christ the King Christian Center</strong><br>
+            An International Christian Worship Church<br><br>
+            <strong style="color:var(--gold-light);">Phone:</strong> (225) 272-7279<br>
+            <strong style="color:var(--gold-light);">Email:</strong>
+            <a href="mailto:CKCCBR@gmail.com">CKCCBR@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-card-icon">📍</div>
+          <h3>Location</h3>
+          <p>
+            4407 N. Sherwood Forest Drive<br>
+            Baton Rouge, Louisiana 70814<br><br>
+            <a href="https://maps.google.com/?q=4407+N+Sherwood+Forest+Dr,+Baton+Rouge,+LA+70814"
+               target="_blank" rel="noopener">
+              Get Directions →
+            </a>
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-card-icon">🕐</div>
+          <h3>Service Times</h3>
+          <p>
+            <strong style="color:var(--gold-light);">Sunday Worship:</strong> 10:00 AM<br>
+            <strong style="color:var(--gold-light);">Bible Study &amp; Prayer:</strong> Wed 7:00 PM<br>
+            <strong style="color:var(--gold-light);">Choir Rehearsal:</strong> Fri 7:00 PM<br>
+            <strong style="color:var(--gold-light);">Dial-in Prayer:</strong> Mon 7:00 PM<br>
+            <strong style="color:var(--gold-light);">Dial-in Number:</strong> 267-807-9605<br>
+            <strong style="color:var(--gold-light);">Access Code:</strong> 801389#
+          </p>
+        </div>
+      </div>
+
+      <div class="map-wrap reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3444.3!2d-91.033!3d30.488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s4407+N+Sherwood+Forest+Dr%2C+Baton+Rouge%2C+LA+70814!5e0!3m2!1sen!2sus!4v1"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Christ the King Christian Center map">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
+      <img src="Logo.png" alt="CKCC Logo" class="footer-logo-img" />
       <h3>Christ the King Christian Center</h3>
-      <p>An International Christian Worship Church</p>
+      <p class="footer-tagline">An International Christian Worship Church</p>
+      <div class="footer-divider"></div>
       <p>4407 N. Sherwood Forest Drive, Baton Rouge, Louisiana 70814</p>
-      <p>(225) 272-7279 • CKCCBR@gmail.com</p>
-
-      <div class="copyright">
-        <p>&copy; <span id="currentYear"></span> Christ the King Christian Center - Baton Rouge, LA. All rights reserved.</p>
-      </div>
+      <p>(225) 272-7279 &nbsp;·&nbsp; CKCCBR@gmail.com</p>
+      <div class="footer-divider"></div>
+      <p class="copyright">&copy; <span id="yr"></span> Christ the King Christian Center — Baton Rouge, LA. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
 
-    const video = document.getElementById('bgVideo');
-    const audioToggle = document.getElementById('audioToggle');
-    let isAudioEnabled = false;
-
-    audioToggle.addEventListener('click', () => {
-      if (isAudioEnabled) {
-        video.muted = true;
-        audioToggle.textContent = '🔊 Enable Audio';
-        audioToggle.style.background = 'var(--gradient-primary)';
-        isAudioEnabled = false;
-      } else {
-        video.muted = false;
-        audioToggle.textContent = '🔇 Disable Audio';
-        audioToggle.style.background = 'var(--gradient-secondary)';
-        isAudioEnabled = true;
-      }
+    // Audio toggle
+    const vid = document.getElementById('bgVideo');
+    const audBtn = document.getElementById('audioToggle');
+    let audioOn = false;
+    audBtn.addEventListener('click', () => {
+      audioOn = !audioOn;
+      vid.muted = !audioOn;
+      audBtn.textContent = audioOn ? '🔇 Disable Audio' : '🔊 Enable Audio';
     });
 
+    // Play video on any interaction
+    const playVideo = () => { if(vid && vid.paused) vid.play().catch(()=>{}); };
+    window.addEventListener('load', playVideo);
+    document.addEventListener('touchstart', playVideo, {once:true});
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
-        const href = a.getAttribute('href');
-        if (href && href !== '#') {
-          const target = document.querySelector(href);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
       });
     });
 
-    window.addEventListener('load', () => {
-      if (video && video.paused) {
-        video.play().catch(() => {});
-      }
-    });
-
-    document.addEventListener('touchstart', () => {
-      if (video && video.paused) video.play().catch(() => {});
-    }, { once: true });
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if(en.isIntersecting){
+          en.target.classList.add('visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold:.12});
+    revealEls.forEach(el => io.observe(el));
   </script>
 
 </body>
