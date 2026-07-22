@@ -331,25 +331,86 @@
     <h2 class="section-title">Upcoming Events</h2>
     <div class="gold-rule"></div>
     <p class="section-sub">Stay connected &mdash; join us for worship, praise, and fellowship throughout the week.</p>
-    <div class="events-grid reveal">
+    <!-- ADD NEW CSS for featured event above events-grid -->
+    <style>
+      .featured-event{
+        display:grid;
+        grid-template-columns:1.4fr 1fr;
+        gap:0;
+        border-radius:var(--radius);
+        overflow:hidden;
+        border:1px solid rgba(201,168,76,.3);
+        box-shadow:0 30px 80px rgba(0,0,0,.5);
+        margin-bottom:2rem;
+        cursor:pointer;
+        transition:transform .3s,box-shadow .3s;
+      }
+      .featured-event:hover{transform:translateY(-4px);box-shadow:0 40px 100px rgba(0,0,0,.6)}
+      .featured-event-video{position:relative;min-height:320px;background:#000;overflow:hidden}
+      .featured-event-video img{width:100%;height:100%;object-fit:cover;opacity:.75;transition:opacity .3s}
+      .featured-event:hover .featured-event-video img{opacity:.9}
+      .featured-event-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem}
+      .featured-event-play-btn{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dark));display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(201,168,76,.6);transition:transform .3s}
+      .featured-event:hover .featured-event-play-btn{transform:scale(1.1)}
+      .featured-event-play-btn svg{width:32px;height:32px;fill:var(--purple);margin-left:5px}
+      .featured-event-play span{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--gold-light);text-transform:uppercase}
+      .featured-event-info{background:linear-gradient(135deg,rgba(28,16,40,.98),rgba(46,31,69,.98));padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(201,168,76,.2)}
+      .upcoming-chip{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);border-radius:999px;padding:.3rem .9rem;font-family:'Cinzel',serif;font-size:.65rem;font-weight:700;letter-spacing:.14em;color:var(--gold);margin-bottom:1.2rem;width:fit-content}
+      .upcoming-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.5s infinite}
+      .featured-event-info h3{font-family:'Cinzel',serif;font-size:1.6rem;font-weight:700;color:var(--white);letter-spacing:.04em;line-height:1.2;margin-bottom:.8rem}
+      .featured-event-info p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:1.5rem}
+      .event-details-list{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.8rem}
+      .event-detail-row{display:flex;align-items:center;gap:.75rem}
+      .event-detail-icon{width:34px;height:34px;border-radius:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+      .event-detail-row span{color:rgba(255,255,255,.8);font-size:.95rem;font-family:'Cormorant Garamond',serif}
+      .event-detail-row strong{color:var(--gold-light)}
+      @media(max-width:768px){.featured-event{grid-template-columns:1fr}.featured-event-video{min-height:220px}.featured-event-info{padding:1.5rem}}
+    </style>
 
-      <div class="event-card" onclick="openVideoModal()">
-        <div class="event-thumb">
-          <img src="Leaders.jpeg" alt="Praise Night" />
-          <div class="play-overlay">
-            <div class="play-circle">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
+    <!-- FEATURED UPCOMING EVENT — Praise Night -->
+    <div class="featured-event reveal" onclick="openVideoModal()">
+      <div class="featured-event-video">
+        <img src="Leaders.jpeg" alt="Night of Praise and Worship" />
+        <div class="featured-event-play">
+          <div class="featured-event-play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </div>
-        </div>
-        <div class="event-body">
-          <p class="event-tag">&#127925; Special Event</p>
-          <h3>Night of Praise &amp; Worship</h3>
-          <p>An evening of powerful praise, dynamic worship, and the presence of God &mdash; open to all.</p>
-          <div class="event-date">&#128197; <span>Click to watch the praise highlight video</span></div>
+          <span>Watch Preview</span>
         </div>
       </div>
+      <div class="featured-event-info">
+        <div class="upcoming-chip">
+          <span class="upcoming-dot"></span>
+          Upcoming Event
+        </div>
+        <h3>Night of Praise &amp; Worship</h3>
+        <p>An extraordinary evening of Spirit-filled praise, dynamic worship, and the tangible presence of God. Everyone is welcome &mdash; come as you are.</p>
+        <div class="event-details-list">
+          <div class="event-detail-row">
+            <div class="event-detail-icon">&#128197;</div>
+            <span><strong>Date &amp; Time:</strong> Coming Soon &mdash; Stay Connected</span>
+          </div>
+          <div class="event-detail-row">
+            <div class="event-detail-icon">&#128205;</div>
+            <span><strong>Location:</strong> 4407 N. Sherwood Forest Dr, Baton Rouge</span>
+          </div>
+          <div class="event-detail-row">
+            <div class="event-detail-icon">&#127279;</div>
+            <span><strong>Admission:</strong> Free &mdash; Open to All</span>
+          </div>
+          <div class="event-detail-row">
+            <div class="event-detail-icon">&#127925;</div>
+            <span><strong>Format:</strong> Live Praise, Worship &amp; Prayer</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+          <span class="btn btn-gold" style="min-width:0;padding:.7rem 1.4rem;font-size:.72rem;">&#9654; Watch Preview</span>
+          <a href="#contact" class="btn btn-outline" style="min-width:0;padding:.7rem 1.4rem;font-size:.72rem;" onclick="event.stopPropagation()">Contact Us</a>
+        </div>
+      </div>
+    </div>
 
+    <div class="events-grid reveal">
       <div class="event-card" onclick="location.href='#live'">
         <div class="event-thumb" style="background:linear-gradient(135deg,var(--purple-mid),var(--purple));">
           <div class="event-thumb-inner">
