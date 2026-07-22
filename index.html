@@ -405,16 +405,21 @@
             <div class="stream-tab" id="tabWed" onclick="switchStream('wednesday')">&#128214; Wed Bible Study</div>
           </div>
         </div>
+        <!-- Live status banner -->
+        <div id="liveBanner" style="display:none;background:linear-gradient(135deg,#b00,#7a0000);padding:.6rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="width:9px;height:9px;border-radius:50%;background:#ff4444;display:inline-block;animation:pulse 1.2s infinite;flex-shrink:0;"></span>
+          <span style="font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.1em;">LIVE NOW &mdash; <span id="liveServiceName">Sunday Worship Service</span></span>
+        </div>
         <div class="video-embed">
           <iframe id="liveFrame"
-            src="https://www.youtube.com/embed/live_stream?channel=UCwElY2wM_GpQDO_RjjR9-eg"
-            title="Christ the King Christian Center Live"
+            src="https://www.youtube.com/embed/99IzQ8F0T-M?rel=0"
+            title="Christ the King Christian Center"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
         <div class="video-card-footer">
-          <h3 id="liveTitle">Sunday Worship Service &mdash; Live</h3>
-          <p id="liveDesc">Join Sunday worship live from Christ the King Christian Center, Baton Rouge.</p>
+          <h3 id="liveTitle">Most Recent Sermon</h3>
+          <p id="liveDesc">Watching our latest service. During live service times, click <strong style="color:var(--gold-light);">Open Live on YouTube</strong> below to watch the live stream directly.</p>
         </div>
       </div>
       <div class="live-info">
@@ -538,7 +543,7 @@
         <div class="pastor-caption"><h4>Fulbert Namwamba, <span class="cred">PhD</span></h4><p>Elder &amp; Director of Missions &middot; Professor</p><span class="years-badge">Served 2005&ndash;2015</span></div>
       </div>
       <div class="pastor-card standard">
-        <img src="Wada.jpg" alt="Friday Wada" class="pastor-img" />
+        <img src="Wada.JPG" alt="Friday Wada" class="pastor-img" />
         <div class="pastor-overlay"></div>
         <span class="pastor-role-tag">Asst. Pastor</span>
         <div class="pastor-caption"><h4>Friday Wada, <span class="cred">PhD</span></h4><p>Assistant Pastor &middot; Director of Prayer Ministry</p><span class="years-badge">Served 2003&ndash;2018</span></div>
@@ -739,22 +744,43 @@
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   // Stream switcher
+  // YouTube live stream embeds require the LIVE VIDEO ID (not stream key).
+  // The video IDs below must be updated each week in YouTube Studio
+  // under "Manage" > your scheduled live event > copy the video URL ID.
+  const streamIds = {
+    sunday:    '99IzQ8F0T-M',  // <-- UPDATE with Sunday live video ID each week
+    wednesday: '99IzQ8F0T-M'   // <-- UPDATE with Wednesday live video ID each week
+  };
+
   function switchStream(day) {
-    const src = 'https://www.youtube.com/embed/live_stream?channel=UCwElY2wM_GpQDO_RjjR9-eg';
-    const titles = {
-      sunday: 'Sunday Worship Service \u2014 Live',
-      wednesday: 'Wednesday Bible Study \u2014 Live'
-    };
-    const descs = {
-      sunday: 'Join Sunday worship live from Christ the King Christian Center, Baton Rouge.',
-      wednesday: 'Join Wednesday Bible Study & Prayer live from Christ the King Christian Center.'
-    };
-    document.getElementById('liveFrame').src = src;
-    document.getElementById('liveTitle').textContent = titles[day];
-    document.getElementById('liveDesc').textContent = descs[day];
+    const id = streamIds[day];
+    document.getElementById('liveFrame').src = 'https://www.youtube.com/embed/' + id + '?rel=0';
+    const isLiveNow = checkIfLiveNow(day);
+    document.getElementById('liveTitle').textContent = isLiveNow
+      ? (day === 'sunday' ? 'Sunday Worship Service \u2014 LIVE NOW' : 'Wednesday Bible Study \u2014 LIVE NOW')
+      : (day === 'sunday' ? 'Sunday Worship Service' : 'Wednesday Bible Study');
+    document.getElementById('liveDesc').textContent = isLiveNow
+      ? 'We are LIVE right now! Watch here or click Open Live on YouTube below.'
+      : 'Watching our latest service. During live times, click \u201COpen Live on YouTube\u201D to join live.';
+    document.getElementById('liveServiceName').textContent = day === 'sunday' ? 'Sunday Worship Service' : 'Wednesday Bible Study';
+    document.getElementById('liveBanner').style.display = isLiveNow ? 'flex' : 'none';
     document.getElementById('tabSun').classList.toggle('active', day === 'sunday');
     document.getElementById('tabWed').classList.toggle('active', day === 'wednesday');
   }
+
+  function checkIfLiveNow(day) {
+    const now = new Date();
+    const dow = now.getDay(); // 0=Sun, 3=Wed
+    const h   = now.getHours();
+    const m   = now.getMinutes();
+    const mins = h * 60 + m;
+    // Sunday service: 9:45 AM – 12:30 PM (585–750 mins)
+    if(day === 'sunday'    && dow === 0 && mins >= 585 && mins <= 750) return true;
+    // Wednesday study:  6:45 PM – 9:00 PM (1005–1260 mins)
+    if(day === 'wednesday' && dow === 3 && mins >= 1005 && mins <= 1260) return true;
+    return false;
+  }
+
   const d = new Date().getDay();
   switchStream(d === 3 ? 'wednesday' : 'sunday');
 
