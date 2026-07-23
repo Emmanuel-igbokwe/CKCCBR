@@ -619,13 +619,15 @@
         <div class="min-cta">Learn More <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
       <div class="min-card" onclick="openMinistryModal('men')">
-        <div class="min-icon">&#128737;</div><h3>Men Ministry</h3><p class="min-time">Annual Conference &middot; 1st Week of February</p>
+        <div class="min-icon">&#128737;</div><h3>Men Ministry</h3>
+        <p class="min-time">3rd Sunday Monthly &middot; Annual Conference in February</p>
         <p>Iron sharpening iron &mdash; men of God gathering to grow in faith, leadership, and accountability.</p>
         <div class="min-cta">Learn More <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
       <div class="min-card" onclick="openMinistryModal('youth')">
-        <div class="min-icon">&#127774;</div><h3>Youth Ministry</h3><p class="min-time">Annual Youth Week &middot; 1st Week of August</p>
-        <p>Young people on fire for God &mdash; gathering every August for a week of worship, teaching, and transformation.</p>
+        <div class="min-icon">&#127774;</div><h3>Youth Ministry</h3>
+        <p class="min-time">Inside Out &middot; Last Friday &nbsp;|&nbsp; CYPC &middot; 2nd Saturday</p>
+        <p>Two dynamic fellowships for teens, college students and young professionals &mdash; growing in faith and purpose together.</p>
         <div class="min-cta">Learn More <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
       <div class="min-card" onclick="openMinistryModal('media')">
@@ -789,7 +791,7 @@
   // Recorded video IDs — update after each service
   const streamIds = {
     sunday:    'RnjTwEu7Xck',  // last Sunday recording
-    wednesday: '2lVoZ4duNZw'   // last Wednesday recording — update after each service
+    wednesday: 'Z5FhMYABhtM'   // last Wednesday recording — update after each service
   };
 
   // Channel live stream URL — used automatically when service is in progress
@@ -939,12 +941,13 @@
 </div>`
     },
     men: {
-      icon:'&#128737;', title:'Men Ministry', tagline:'Annual Conference \u00B7 1st Week of February', img:'Azuoru.jpg',
+      icon:'&#128737;', title:'Men Ministry', tagline:'3rd Sunday Monthly \u00B7 Annual Conference in February', img:'Azuoru.jpg',
       body:`<h3>About Men Ministry</h3>
 <p>The Men Ministry at Christ the King Christian Center brings men together to grow in faith, sharpen one another, and walk in their God-given purpose as husbands, fathers, leaders, and servants of Christ. Iron sharpens iron &mdash; and together we are stronger.</p>
 <p>Through fellowship, prayer, Bible study, and outreach, the men of CKCC are equipped to lead their families and communities with integrity, love, and the power of the Holy Spirit.</p>
 <h3>Schedule</h3>
 <div class="mschedule">
+<div class="mschedule-item"><strong>Monthly Meeting</strong><span>3rd Sunday of every month</span></div>
 <div class="mschedule-item"><strong>Annual Conference</strong><span>1st week of February each year</span></div>
 <div class="mschedule-item"><strong>Format</strong><span>Fellowship, Prayer &amp; Word</span></div>
 <div class="mschedule-item"><strong>Location</strong><span>4407 N. Sherwood Forest Dr, Baton Rouge</span></div>
@@ -962,17 +965,33 @@
 </div>`
     },
     youth: {
-      icon:'&#127774;', title:'Youth Ministry', tagline:'Annual Youth Week \u00B7 1st Week of August', img:'Leaders.jpeg',
+      icon:'&#127774;', title:'Youth Ministry', tagline:'Inside Out \u00B7 Last Friday Monthly \u00B7 CYPC \u00B7 2nd Saturday Monthly', img:'Leaders.jpeg',
       body:`<h3>About Youth Ministry</h3>
-<p>The Youth Ministry at Christ the King Christian Center is a dynamic, Spirit-filled gathering of young people who are passionate about God, purpose, and community. Once a year during the <strong>first week of August</strong>, our youth come together for an intensive week of worship, teaching, fellowship, and spiritual growth.</p>
-<p>This annual gathering is a time for young people to encounter God in a fresh way, build lasting friendships, and be equipped to walk boldly in their faith in today's world. We believe the youth are not the future of the church &mdash; they are the church <em>right now</em>.</p>
-<h3>Schedule</h3>
+<p>The Youth Ministry at Christ the King Christian Center is a dynamic, Spirit-filled community for young people who are passionate about God, purpose, and connection. We operate through two distinct fellowships &mdash; one for teens and one for college-aged young professionals &mdash; each designed to meet young people exactly where they are.</p>
+
+<h3>Inside Out Youth Fellowship</h3>
+<p>Inside Out is our teen and youth fellowship &mdash; a vibrant gathering where young people encounter God, build lasting friendships, and are transformed from the inside out. This group meets every <strong>last Friday of the month</strong> for worship, teaching, and fellowship.</p>
+<div class="mschedule">
+<div class="mschedule-item"><strong>Meets</strong><span>Last Friday of every month</span></div>
+<div class="mschedule-item"><strong>Format</strong><span>Worship, Teaching &amp; Fellowship</span></div>
+<div class="mschedule-item"><strong>For</strong><span>Teens &amp; Youth</span></div>
+</div>
+
+<h3>CYPC &mdash; College &amp; Young Professionals</h3>
+<p>The College and Young Professionals Community (CYPC) is a fellowship for college students and young professionals navigating faith, career, and purpose together. This group meets every <strong>second Saturday of the month</strong>.</p>
+<div class="mschedule">
+<div class="mschedule-item"><strong>Meets</strong><span>2nd Saturday of every month</span></div>
+<div class="mschedule-item"><strong>Format</strong><span>Fellowship, Prayer &amp; Mentorship</span></div>
+<div class="mschedule-item"><strong>For</strong><span>College Students &amp; Young Professionals</span></div>
+</div>
+
+<h3>Annual Youth Week</h3>
+<p>Once a year during the <strong>first week of August</strong>, all youth come together for an intensive week of worship, teaching, and spiritual growth. This is the highlight of the youth calendar year.</p>
 <div class="mschedule">
 <div class="mschedule-item"><strong>Annual Youth Week</strong><span>1st week of August each year</span></div>
-<div class="mschedule-item"><strong>Format</strong><span>Worship, Teaching &amp; Fellowship</span></div>
-<div class="mschedule-item"><strong>Ages</strong><span>Teens &amp; Young Adults</span></div>
 <div class="mschedule-item"><strong>Location</strong><span>4407 N. Sherwood Forest Dr, Baton Rouge</span></div>
 </div>
+
 <h3>Youth Week Replay</h3>
 <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:1.2rem;border:1px solid rgba(201,168,76,.2);">
 <iframe src="https://www.youtube.com/embed/7HbV5lfaxTk" title="Youth Ministry Week" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
