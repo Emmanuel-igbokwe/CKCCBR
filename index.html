@@ -781,46 +781,53 @@
   }, {threshold:.1});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Stream switcher
-  // YouTube live stream embeds require the LIVE VIDEO ID (not stream key).
-  // The video IDs below must be updated each week in YouTube Studio
-  // under "Manage" > your scheduled live event > copy the video URL ID.
+  // Recorded video IDs — update after each service
   const streamIds = {
-    sunday:    'RnjTwEu7Xck',  // <-- UPDATE with Sunday live video ID each week
-    wednesday: '2lVoZ4duNZw'   // <-- UPDATE with Wednesday live video ID each week
+    sunday:    'RnjTwEu7Xck',  // last Sunday recording
+    wednesday: '2lVoZ4duNZw'   // last Wednesday recording
   };
 
+  // Channel live stream URL — used automatically when service is in progress
+  const CHANNEL_ID = 'UCwElY2wM_GpQDO_RjjR9-eg';
+  const LIVE_URL   = 'https://www.youtube.com/embed/live_stream?channel=' + CHANNEL_ID + '&autoplay=1';
+
+  function checkIfLiveNow(day) {
+    const now  = new Date();
+    const dow  = now.getDay(); // 0=Sun, 3=Wed
+    const mins = now.getHours() * 60 + now.getMinutes();
+    // Sunday: 9:45 AM – 1:00 PM
+    if (day === 'sunday'    && dow === 0 && mins >= 585 && mins <= 780) return true;
+    // Wednesday: 6:45 PM – 9:30 PM
+    if (day === 'wednesday' && dow === 3 && mins >= 1005 && mins <= 1290) return true;
+    return false;
+  }
+
   function switchStream(day) {
-    const id = streamIds[day];
-    document.getElementById('liveFrame').src = 'https://www.youtube.com/embed/' + id + '?rel=0';
-    const isLiveNow = checkIfLiveNow(day);
-    document.getElementById('liveTitle').textContent = isLiveNow
-      ? (day === 'sunday' ? 'Sunday Worship Service \u2014 LIVE NOW' : 'Wednesday Bible Study \u2014 LIVE NOW')
+    const live = checkIfLiveNow(day);
+    // Use live channel feed when in service window, otherwise show last recording
+    document.getElementById('liveFrame').src = live
+      ? LIVE_URL
+      : 'https://www.youtube.com/embed/' + streamIds[day] + '?rel=0';
+
+    document.getElementById('liveTitle').textContent = live
+      ? (day === 'sunday' ? 'Sunday Worship — LIVE NOW \uD83D\uDD34' : 'Wednesday Bible Study — LIVE NOW \uD83D\uDD34')
       : (day === 'sunday' ? 'Sunday Worship Service' : 'Wednesday Bible Study');
-    document.getElementById('liveDesc').textContent = isLiveNow
-      ? 'We are LIVE right now! Watch here or click Open Live on YouTube below.'
-      : 'Watching our latest service. During live times, click \u201COpen Live on YouTube\u201D to join live.';
-    document.getElementById('liveServiceName').textContent = day === 'sunday' ? 'Sunday Worship Service' : 'Wednesday Bible Study';
-    document.getElementById('liveBanner').style.display = isLiveNow ? 'flex' : 'none';
+
+    document.getElementById('liveDesc').textContent = live
+      ? 'We are streaming LIVE right now! Watch here or click Open Live on YouTube below.'
+      : 'Showing our most recent service. During service times this switches to live automatically.';
+
+    document.getElementById('liveServiceName').textContent =
+      day === 'sunday' ? 'Sunday Worship Service' : 'Wednesday Bible Study';
+    document.getElementById('liveBanner').style.display = live ? 'flex' : 'none';
+
     document.getElementById('tabSun').classList.toggle('active', day === 'sunday');
     document.getElementById('tabWed').classList.toggle('active', day === 'wednesday');
   }
 
-  function checkIfLiveNow(day) {
-    const now = new Date();
-    const dow = now.getDay(); // 0=Sun, 3=Wed
-    const h   = now.getHours();
-    const m   = now.getMinutes();
-    const mins = h * 60 + m;
-    // Sunday service: 9:45 AM – 12:30 PM (585–750 mins)
-    if(day === 'sunday'    && dow === 0 && mins >= 585 && mins <= 750) return true;
-    // Wednesday study:  6:45 PM – 9:00 PM (1005–1260 mins)
-    if(day === 'wednesday' && dow === 3 && mins >= 1005 && mins <= 1260) return true;
-    return false;
-  }
-
-  const d = new Date().getDay();
-  switchStream(d === 3 ? 'wednesday' : 'sunday');
+  // Auto-select based on today — Wednesday overrides to Wednesday tab
+  const _d = new Date().getDay();
+  switchStream(_d === 3 ? 'wednesday' : 'sunday');
 
   // Video modal
   function openVideoModal() {
