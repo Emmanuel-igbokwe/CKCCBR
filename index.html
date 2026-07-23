@@ -619,8 +619,13 @@
         <div class="min-cta">Learn More <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
       <div class="min-card" onclick="openMinistryModal('men')">
-        <div class="min-icon">&#128737;</div><h3>Men Ministry</h3><p class="min-time">Monthly</p>
+        <div class="min-icon">&#128737;</div><h3>Men Ministry</h3><p class="min-time">Annual Conference &middot; 1st Week of February</p>
         <p>Iron sharpening iron &mdash; men of God gathering to grow in faith, leadership, and accountability.</p>
+        <div class="min-cta">Learn More <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="min-card" onclick="openMinistryModal('youth')">
+        <div class="min-icon">&#127774;</div><h3>Youth Ministry</h3><p class="min-time">Annual Youth Week &middot; 1st Week of August</p>
+        <p>Young people on fire for God &mdash; gathering every August for a week of worship, teaching, and transformation.</p>
         <div class="min-cta">Learn More <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
       <div class="min-card" onclick="openMinistryModal('media')">
@@ -784,7 +789,7 @@
   // Recorded video IDs — update after each service
   const streamIds = {
     sunday:    'RnjTwEu7Xck',  // last Sunday recording
-    wednesday: '2lVoZ4duNZw'   // last Wednesday recording
+    wednesday: '2lVoZ4duNZw'   // last Wednesday recording — update after each service
   };
 
   // Channel live stream URL — used automatically when service is in progress
@@ -828,6 +833,13 @@
   // Auto-select based on today — Wednesday overrides to Wednesday tab
   const _d = new Date().getDay();
   switchStream(_d === 3 ? 'wednesday' : 'sunday');
+
+  // Check every 90 seconds — auto-switches to live when service starts,
+  // and back to recording when service ends (fixes "video not available" after stream)
+  setInterval(() => {
+    const day = new Date().getDay() === 3 ? 'wednesday' : 'sunday';
+    switchStream(day);
+  }, 90000);
 
   // Video modal
   function openVideoModal() {
@@ -913,6 +925,11 @@
 <div class="mschedule-item"><strong>Annual Conference</strong><span>1st Weekend in March</span></div>
 <div class="mschedule-item"><strong>Founded</strong><span>March 4, 2006</span></div>
 </div>
+<h3>Women Conference Replay</h3>
+<div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:1.2rem;border:1px solid rgba(201,168,76,.2);">
+<iframe src="https://www.youtube.com/embed/73AxyCmjxus" title="Women Ministry Conference" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
+</div>
+<a href="https://www.youtube.com/live/73AxyCmjxus" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--gold-light);border:1px solid rgba(201,168,76,.3);padding:.5rem 1rem;border-radius:999px;margin-bottom:1.5rem;">&#9654; Watch on YouTube</a>
 <h3>Gallery</h3>
 <div class="photo-grid">
 <div class="photo-slot">Photos<br>Coming Soon</div>
@@ -922,16 +939,46 @@
 </div>`
     },
     men: {
-      icon:'&#128737;', title:'Men Ministry', tagline:'Monthly \u00B7 Men of God in Fellowship', img:'Azuoru.jpg',
+      icon:'&#128737;', title:'Men Ministry', tagline:'Annual Conference \u00B7 1st Week of February', img:'Azuoru.jpg',
       body:`<h3>About Men Ministry</h3>
 <p>The Men Ministry at Christ the King Christian Center brings men together to grow in faith, sharpen one another, and walk in their God-given purpose as husbands, fathers, leaders, and servants of Christ. Iron sharpens iron &mdash; and together we are stronger.</p>
 <p>Through fellowship, prayer, Bible study, and outreach, the men of CKCC are equipped to lead their families and communities with integrity, love, and the power of the Holy Spirit.</p>
 <h3>Schedule</h3>
 <div class="mschedule">
-<div class="mschedule-item"><strong>Meetings</strong><span>Monthly</span></div>
+<div class="mschedule-item"><strong>Annual Conference</strong><span>1st week of February each year</span></div>
 <div class="mschedule-item"><strong>Format</strong><span>Fellowship, Prayer &amp; Word</span></div>
+<div class="mschedule-item"><strong>Location</strong><span>4407 N. Sherwood Forest Dr, Baton Rouge</span></div>
 </div>
+<h3>Men Conference Replay</h3>
+<div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:1.2rem;border:1px solid rgba(201,168,76,.2);">
+<iframe src="https://www.youtube.com/embed/p3RnTAoOsuk" title="Men Ministry Conference" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
+</div>
+<a href="https://www.youtube.com/live/p3RnTAoOsuk" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--gold-light);border:1px solid rgba(201,168,76,.3);padding:.5rem 1rem;border-radius:999px;margin-bottom:1.5rem;">&#9654; Watch on YouTube</a>
 <h3>Updates &amp; Gallery</h3>
+<div class="photo-grid">
+<div class="photo-slot">Photos<br>Coming Soon</div>
+<div class="photo-slot">Photos<br>Coming Soon</div>
+<div class="photo-slot">Photos<br>Coming Soon</div>
+</div>`
+    },
+    youth: {
+      icon:'&#127774;', title:'Youth Ministry', tagline:'Annual Youth Week \u00B7 1st Week of August', img:'Leaders.jpeg',
+      body:`<h3>About Youth Ministry</h3>
+<p>The Youth Ministry at Christ the King Christian Center is a dynamic, Spirit-filled gathering of young people who are passionate about God, purpose, and community. Once a year during the <strong>first week of August</strong>, our youth come together for an intensive week of worship, teaching, fellowship, and spiritual growth.</p>
+<p>This annual gathering is a time for young people to encounter God in a fresh way, build lasting friendships, and be equipped to walk boldly in their faith in today's world. We believe the youth are not the future of the church &mdash; they are the church <em>right now</em>.</p>
+<h3>Schedule</h3>
+<div class="mschedule">
+<div class="mschedule-item"><strong>Annual Youth Week</strong><span>1st week of August each year</span></div>
+<div class="mschedule-item"><strong>Format</strong><span>Worship, Teaching &amp; Fellowship</span></div>
+<div class="mschedule-item"><strong>Ages</strong><span>Teens &amp; Young Adults</span></div>
+<div class="mschedule-item"><strong>Location</strong><span>4407 N. Sherwood Forest Dr, Baton Rouge</span></div>
+</div>
+<h3>Youth Week Replay</h3>
+<div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:1.2rem;border:1px solid rgba(201,168,76,.2);">
+<iframe src="https://www.youtube.com/embed/7HbV5lfaxTk" title="Youth Ministry Week" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
+</div>
+<a href="https://www.youtube.com/live/7HbV5lfaxTk" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--gold-light);border:1px solid rgba(201,168,76,.3);padding:.5rem 1rem;border-radius:999px;margin-bottom:1.5rem;">&#9654; Watch on YouTube</a>
+<h3>Gallery</h3>
 <div class="photo-grid">
 <div class="photo-slot">Photos<br>Coming Soon</div>
 <div class="photo-slot">Photos<br>Coming Soon</div>
